@@ -1,22 +1,15 @@
+from __future__ import annotations
 from dotenv import load_dotenv
 from groq import Groq
 import os
-from __future__ import annotations
 import json
-from dotenv import load_dotenv
+from typing import Any, Dict, Optional, Union
 
-# load secrets
+# load secrets from .env
 load_dotenv()
 
 
 class GenerateFinalOutputTool:
-    """Tool to load a comparison JSON and ask Groq to summarize the result.
-
-    Usage:
-        tool = GenerateFinalOutputTool(groq_api_key=os.getenv('GROQ_API_KEY'))
-        summary = tool.run('comparison_result.json')
-    """
-
     def __init__(self, groq_api_key: str):
         if not groq_api_key:
             raise ValueError("groq_api_key is required")
@@ -26,31 +19,41 @@ class GenerateFinalOutputTool:
         try:
             return Groq(api_key=self.groq_api_key)
         except Exception as e:
-            raise ImportError("Failed to create Groq client: {}".format(e))
+            raise ImportError(f"Failed to create Groq client: {e}") from e
 
-    def run(self, json_path: str) -> str:
-        """Load the JSON comparison at json_path and produce a natural-language summary.
+    def _load_data(self, json_input: Union[str, os.PathLike, Dict[str, Any], Any]) -> Dict[str, Any]:
+        # File path
+        if isinstance(json_input, (str, os.PathLike)):
+            path = str(json_input)
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"Comparison file not found: {path}")
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
 
-        The JSON is expected to contain at least a top-level `summary` and optional `comparison`.
-        """
-        if not os.path.exists(json_path):
-            raise FileNotFoundError(f"Comparison file not found: {json_path}")
+        # Dict
+        if isinstance(json_input, dict):
+            return json_input
 
-        with open(json_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        # File-like object
+        if hasattr(json_input, "read"):
+            try:
+                return json.load(json_input)
+            except Exception as e:
+                raise ValueError(f"Failed to parse JSON from file-like object: {e}")
+
+        raise TypeError("json_input must be a path, a dict, or a file-like object")
+
+    def run(self, json_input: Union[str, os.PathLike, Dict[str, Any], Any]) -> str:
+        data = self._load_data(json_input)
 
         summary = data.get("summary", {})
         comparison = data.get("comparison", [])
 
-        # Build a prompt that directly uses the extracted `summary` and a
-        # small preview of `comparison` so those variables are used and the
-        # prompt is clearer for the LLM.
+        if not isinstance(comparison, list):
+            comparison = [comparison]
+
         summary_str = json.dumps(summary, indent=2)
-        # Show up to the first 5 comparison entries as a preview
-        try:
-            comparison_preview = json.dumps(comparison[:5], indent=2)
-        except Exception:
-            comparison_preview = json.dumps(comparison, indent=2)
+        comparison_preview = json.dumps(comparison[:5], indent=2)
 
         prompt = f"""
 You are a data quality analyst. A JSON comparison result is provided. Summarize:
@@ -64,7 +67,7 @@ You are a data quality analyst. A JSON comparison result is provided. Summarize:
 Top-level summary:
 {summary_str}
 
-Comparison preview (first up to 5 items):
+Comparison preview (first 5 items):
 {comparison_preview}
 
 Full JSON (for reference):
@@ -73,9 +76,8 @@ Full JSON (for reference):
 
         client = self._load_client()
 
-        # Use the Groq chat completions API to get a textual summary.
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "system", "content": "You summarize company data comparisons."},
                 {"role": "user", "content": prompt},
@@ -83,19 +85,34 @@ Full JSON (for reference):
             temperature=0.2,
         )
 
-        # Response parsing: support common Groq shapes
-        try:
-            return response.choices[0].message["content"]
-        except Exception:
-            # Fallback: str(response)
-            return str(response)
+        # Support multiple Groq SDK response shapes
+        msg = response.choices[0].message
+        return msg["content"] if isinstance(msg, dict) else msg.content
 
 
 if __name__ == "__main__":
     key = os.getenv("GROQ_API_KEY")
     tool = GenerateFinalOutputTool(groq_api_key=key)
+
+    sample_json = {
+        "summary": {
+            "overall_similarity": 0.87,
+            "match": True,
+            "fields_compared": 7
+        },
+        "comparison": [
+            {
+                "parent company": "Amazon",
+                "company address": "932 California Ln",
+                "company state": "CA",
+                "company country": "US",
+                "postal code": "12212"
+            }
+        ]
+    }
+
     try:
-        summary = tool.run("comparison_result.json")
-        print(summary)
+        summary_text = tool.run(sample_json)
+        print(summary_text)
     except Exception as e:
         print("Error:", e)
