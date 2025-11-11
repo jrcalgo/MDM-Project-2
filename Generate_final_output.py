@@ -1,9 +1,9 @@
 from __future__ import annotations
+from typing import Any, Dict, Union
 from dotenv import load_dotenv
 from groq import Groq
 import os
 import json
-from typing import Any, Dict, Optional, Union
 
 # load secrets from .env
 load_dotenv()
@@ -39,7 +39,7 @@ class GenerateFinalOutputTool:
             try:
                 return json.load(json_input)
             except Exception as e:
-                raise ValueError(f"Failed to parse JSON from file-like object: {e}")
+                raise ValueError(f"Failed to parse JSON from file-like object: {e}") from e
 
         raise TypeError("json_input must be a path, a dict, or a file-like object")
 
@@ -114,5 +114,5 @@ if __name__ == "__main__":
     try:
         summary_text = tool.run(sample_json)
         print(summary_text)
-    except Exception as e:
+    except ValueError as e:
         print("Error:", e)
