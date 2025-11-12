@@ -1,5 +1,28 @@
 # MDM-Project-2
 
+## Quick Start
+
+1. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Set up environment variables** (create a `.env` file or export):
+   ```bash
+   export OPENAI_API_KEY=your_key_here
+   export GROQ_API_KEY=your_key_here
+   export GOOGLE_KG_API_KEY=your_key_here  # optional
+   export TAVILY_API_KEY=your_key_here      # optional
+   ```
+
+3. **Run the pipeline:**
+   ```bash
+   bash main.sh
+   ```
+
+Requires Python 3.8+.
+
+---
 
 **MDM (Master Data Management)**
 
