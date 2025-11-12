@@ -1,0 +1,15 @@
+# Core dependencies
+requests>=2.31.0
+pandas>=2.0.0
+openpyxl>=3.1.2    # required by pandas for reading .xlsx files
+
+# Optional (recommended) utilities
+tqdm>=4.65.0       # optional for progress display if used later
+
+# Notes:
+# - Requires Python 3.9+ (for typing and dataclasses)
+# - The pipeline uses external APIs (OpenAI, Tavily, Google KG, Wikidata, OSM)
+#   so valid API keys must be exported before running driver.py:
+#     export OPENAI_API_KEY=...
+#     export GOOGLE_KG_API_KEY=...
+#     export TAVILY_API_KEY=...
