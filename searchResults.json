@@ -1,0 +1,85 @@
+{
+  "searchResults": [
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "BAS Engineering Limited",
+      "address": "Room 708, Paramount Building, 12 Ka Yip Street",
+      "city": "Chai Wan",
+      "state": "HONG KONG",
+      "country": "Hong Kong",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "施耐德电气（中国）有限公司",
+      "address": "",
+      "city": "北京市",
+      "state": "",
+      "country": "中国",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "name": "中国金山联合贸易有限责任公司",
+      "address": "",
+      "city": "上海市",
+      "state": "",
+      "country": "中国",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "name": "深圳能殷自动化贸易有限公司",
+      "address": "深圳市上步中路工会大厦6楼B座",
+      "city": "",
+      "state": "",
+      "country": "CN",
+      "postal_code": "581031",
+      "search": true
+    },
+    {
+      "name": "天津开发区泰达大厦房地产开发有限公司",
+      "address": "",
+      "city": "天津",
+      "state": "",
+      "country": "CN",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "Growinet Limited",
+      "address": "RM 1902 19/F Tung Wah Mansion 199-203 Hennessy RD",
+      "city": "Wan Chai",
+      "state": "Hong Kong",
+      "country": "Hong Kong",
+      "postal_code": "",
+      "search": true
+    }
+  ]
+}
