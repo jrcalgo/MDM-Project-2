@@ -12,8 +12,8 @@ import sys
 import time
 
 # Import your project logic
-import searchFunction  # exposes: read_input_rows(path), run_batch(records, minimal_logging=True)
-import processSearchResults  # exposes: process_results(results_json_path) -> dict
+from functions import searchFunction # exposes: read_input_rows(path), run_batch(records, minimal_logging=True)
+from functions import processSearchResults # exposes: process_results(results_json_path) -> dict
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="MDM verification pipeline driver")
@@ -36,7 +36,7 @@ def main() -> int:
         return 2
 
     start_ts = time.time()
-    print(f"[INFO] Starting run")
+    print("[INFO] Starting run")
     print(f"[INFO] Input : {input_path}")
     print(f"[INFO] Output: {output_path}")
     print(f"[INFO] Formatted Output: {formatted_path}")

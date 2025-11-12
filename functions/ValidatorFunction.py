@@ -12,7 +12,7 @@ from __future__ import annotations
 import os
 import json
 from typing import Any, Dict, List, Optional, Literal
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, asdict
 
 from searchFunction import openai_chat
 
@@ -298,7 +298,7 @@ class ValidatorFunction:
             return scrutiny
             
         except Exception as e:
-            ## TODO: Add better fallback logic here
+            #TODO: Add better fallback logic here
             self._log(f"LLM scrutiny error: {e}")
 
             return ValidationScrutiny(
@@ -417,7 +417,7 @@ class ValidatorFunction:
             return "needs_refinement", False, feedback
         
         if not confidence_meets_threshold:
-            self._log(f"Confidence below threshold")
+            self._log("Confidence below threshold")
             suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
             feedback = self._generate_feedback(search_output, scrutiny, confidence_meets_threshold, suggested_score)
             return "needs_refinement", False, feedback
@@ -546,7 +546,7 @@ if __name__ == "__main__":
             iteration=0
         )
         
-        print(f"\nValidation Result:")
+        print("\nValidation Result:")
         result_dict = asdict(validation_result)
         print(json.dumps(result_dict, indent=2, ensure_ascii=False))
         print(f"\nDecision: {'APPROVE FOR CSV' if validation_result.approved_for_csv else 'NEEDS REFINEMENT'}")
