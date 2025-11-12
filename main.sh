@@ -2,7 +2,7 @@
 
 # make sure .env is set correctly, requirements.txt has been installed, and python is >=3.8
 
-python searchFunction.py
+python driver.py --input query_group2.xlsx --output rawSearchResults.json --formatted-output searchResults.json
 
 python ComparisionFunction.py
 
