@@ -1,0 +1,496 @@
+[
+  {
+    "row_index": 0,
+    "input": {
+      "name": "Beijing Zing Found Network Co.ltd",
+      "address": "Building 3 Room 11c, No. 31 Zizhu Yuan Road",
+      "city": "Beijing",
+      "state": "BEIJING",
+      "country": "CN",
+      "postal_code": "100089"
+    },
+    "queries": {
+      "q_name": "Beijing Zing Found Network Co.ltd",
+      "q_name_geo": "Beijing Zing Found Network Co.ltd Beijing China",
+      "q_full_addr": "Building 3 Room 11c, No. 31 Zizhu Yuan Road, Beijing BEIJING 100089, China"
+    },
+    "timing_ms": 5091,
+    "success": false,
+    "message": "No results directly reference the input company or indicate a plausible connection.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "No results directly reference the input company or indicate a plausible connection.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 1,
+    "input": {
+      "name": "Engineered Services (australia) Pty. Limited",
+      "address": "3/f Plaza Chambers",
+      "city": "Springwood",
+      "state": "QLD",
+      "country": "AU",
+      "postal_code": "4127"
+    },
+    "queries": {
+      "q_name": "Engineered Services (australia) Pty. Limited",
+      "q_name_geo": "Engineered Services (australia) Pty. Limited Springwood AU",
+      "q_full_addr": "3/f Plaza Chambers, Springwood QLD 4127, AU"
+    },
+    "timing_ms": 5220,
+    "success": false,
+    "message": "No results directly refer to 'Engineered Services (australia) Pty. Limited' or provide relevant information about it.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "No results directly refer to 'Engineered Services (australia) Pty. Limited' or provide relevant information about it.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 2,
+    "input": {
+      "name": "No.6 Mechanical Design & Research Institute",
+      "address": "Shàngbùzhōnglù",
+      "city": "Shēnzhènshì",
+      "state": "GUǍNGDŌNGSHĚNG",
+      "country": "CN",
+      "postal_code": "518027"
+    },
+    "queries": {
+      "q_name": "No.6 Mechanical Design & Research Institute",
+      "q_name_geo": "No.6 Mechanical Design & Research Institute Shēnzhènshì China",
+      "q_full_addr": "Shàngbùzhōnglù, Shēnzhènshì GUǍNGDŌNGSHĚNG 518027, China"
+    },
+    "timing_ms": 3296,
+    "success": false,
+    "message": "No relevant results found that match the input company.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "No relevant results found that match the input company.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 3,
+    "input": {
+      "name": "Bas Engineering Limited",
+      "address": "6/F., PARAMOUNT BUILDING, 12 KA YIP STREET",
+      "city": "HONG KONG",
+      "state": "HONG KONG",
+      "country": "CN",
+      "postal_code": "-"
+    },
+    "queries": {
+      "q_name": "Bas Engineering Limited",
+      "q_name_geo": "Bas Engineering Limited HONG KONG Hong Kong",
+      "q_full_addr": "6/F., PARAMOUNT BUILDING, 12 KA YIP STREET, HONG KONG HONG KONG, Hong Kong"
+    },
+    "timing_ms": 26979,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [
+      "http://www.bashk.com/template?series=38",
+      "https://hk.kompass.com/c/bas-engineering-limited/hk049941/",
+      "https://www.builderhk.com/app/listing-detail.php?q=22800560&l=en",
+      "https://www.southa.com/en/about-us/company-structure/bas-engineering-limited"
+    ],
+    "evidence_count": 9,
+    "notes": "Data was sourced from Tavily, providing a consistent address and company name.",
+    "enriched_mdm": {
+      "canonical_name": "BAS Engineering Limited",
+      "aka": [],
+      "address": "Room 708, Paramount Building, 12 Ka Yip Street",
+      "city": "Chai Wan",
+      "state": "Hong Kong",
+      "postal_code": "",
+      "country": "Hong Kong",
+      "lat": null,
+      "lon": null,
+      "websites": [
+        "http://www.bashk.com/template?series=38",
+        "https://hk.kompass.com/c/bas-engineering-limited/hk049941/",
+        "https://www.builderhk.com/app/listing-detail.php?q=22800560&l=en",
+        "https://www.southa.com/en/about-us/company-structure/bas-engineering-limited"
+      ],
+      "ids": {},
+      "confidence": 1.0
+    }
+  },
+  {
+    "row_index": 4,
+    "input": {
+      "name": "北京华力豪顺科技公司",
+      "address": "工行北京长安分理处, .",
+      "city": "BEIJING",
+      "state": "CHINA",
+      "country": "CN",
+      "postal_code": "."
+    },
+    "queries": {
+      "q_name": "北京华力豪顺科技公司",
+      "q_name_geo": "北京华力豪顺科技公司 BEIJING China",
+      "q_full_addr": "工行北京长安分理处, ., BEIJING CHINA ., China"
+    },
+    "timing_ms": 4700,
+    "success": false,
+    "message": "No relevant information found in the tools summary that matches the input company.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "No relevant information found in the tools summary that matches the input company.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 5,
+    "input": {
+      "name": "施耐德电气中国投资有限公司",
+      "address": "中国工商银行北京经济技术开发区, 支行营业室",
+      "city": "BEIJING",
+      "state": "CHINA",
+      "country": "CN",
+      "postal_code": "."
+    },
+    "queries": {
+      "q_name": "施耐德电气中国投资有限公司",
+      "q_name_geo": "施耐德电气中国投资有限公司 BEIJING China",
+      "q_full_addr": "中国工商银行北京经济技术开发区, 支行营业室, BEIJING CHINA ., China"
+    },
+    "timing_ms": 29229,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [
+      "https://www.schneider-electric.cn/zh/about-us/contact-us/our-office/headquarters/"
+    ],
+    "evidence_count": 6,
+    "notes": "The information was gathered from reliable sources, primarily from the official Schneider Electric website and Baidu Baike.",
+    "enriched_mdm": {
+      "canonical_name": "施耐德电气（中国）投资有限公司",
+      "aka": [],
+      "address": "北京市朝阳区望京东路6号",
+      "city": "北京市",
+      "state": "",
+      "postal_code": "100102",
+      "country": "中国",
+      "lat": null,
+      "lon": null,
+      "websites": [
+        "https://www.schneider-electric.cn/zh/about-us/contact-us/our-office/headquarters/"
+      ],
+      "ids": {},
+      "confidence": 0.0
+    }
+  },
+  {
+    "row_index": 6,
+    "input": {
+      "name": "中国金山联合贸易有限责任公司",
+      "address": "中行金山支行石化分理处, .",
+      "city": "SHANGHAI",
+      "state": "CHINA",
+      "country": "CN",
+      "postal_code": "."
+    },
+    "queries": {
+      "q_name": "中国金山联合贸易有限责任公司",
+      "q_name_geo": "中国金山联合贸易有限责任公司 SHANGHAI China",
+      "q_full_addr": "中行金山支行石化分理处, ., SHANGHAI CHINA ., China"
+    },
+    "timing_ms": 32355,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [],
+    "evidence_count": 5,
+    "notes": "The company name and address were confirmed through multiple sources, ensuring high confidence in the data.; dropped_unverified: websites",
+    "enriched_mdm": {
+      "canonical_name": "中国金山联合贸易有限责任公司",
+      "aka": [],
+      "address": "金一东路1号金山宾馆南8楼",
+      "city": "上海市",
+      "state": "",
+      "postal_code": "200050",
+      "country": "CN",
+      "lat": null,
+      "lon": null,
+      "websites": [],
+      "ids": {},
+      "confidence": 1.0
+    }
+  },
+  {
+    "row_index": 7,
+    "input": {
+      "name": "能殷自动化贸易(深圳)有限公司",
+      "address": "深圳市招商银行总行营业部, .",
+      "city": "SHENZHEN",
+      "state": "CHINA",
+      "country": "CN",
+      "postal_code": "."
+    },
+    "queries": {
+      "q_name": "能殷自动化贸易(深圳)有限公司",
+      "q_name_geo": "能殷自动化贸易(深圳)有限公司 SHENZHEN China",
+      "q_full_addr": "深圳市招商银行总行营业部, ., SHENZHEN CHINA ., China"
+    },
+    "timing_ms": 21227,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [
+      "http://www.nengyin.cn"
+    ],
+    "evidence_count": 5,
+    "notes": "Data assembled from Tavily results, providing the canonical name, address, postal code, and website.; dropped_unverified: city",
+    "enriched_mdm": {
+      "canonical_name": "深圳能殷自动化贸易有限公司",
+      "aka": [],
+      "address": "深圳市上步中路工会大厦6楼B座",
+      "city": "",
+      "state": "",
+      "postal_code": "581031",
+      "country": "CN",
+      "lat": null,
+      "lon": null,
+      "websites": [
+        "http://www.nengyin.cn"
+      ],
+      "ids": {},
+      "confidence": 0.0
+    }
+  },
+  {
+    "row_index": 8,
+    "input": {
+      "name": "天津市开发区泰达大厦房地产开发有限公司泰达俱乐部",
+      "address": "天津商业银行协通支行, .",
+      "city": "TIANJIN",
+      "state": "CHINA",
+      "country": "CN",
+      "postal_code": "."
+    },
+    "queries": {
+      "q_name": "天津市开发区泰达大厦房地产开发有限公司泰达俱乐部",
+      "q_name_geo": "天津市开发区泰达大厦房地产开发有限公司泰达俱乐部 TIANJIN China",
+      "q_full_addr": "天津商业银行协通支行, ., TIANJIN CHINA ., China"
+    },
+    "timing_ms": 35911,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [],
+    "evidence_count": 5,
+    "notes": "The company name and address were confirmed through authoritative sources, specifically Baidu Baike and Tianjin City Management Committee.; dropped_unverified: websites",
+    "enriched_mdm": {
+      "canonical_name": "天津开发区泰达大厦房地产开发有限公司",
+      "aka": [],
+      "address": "天津市河西区解放南路256号泰达大厦6层D座",
+      "city": "天津",
+      "state": "",
+      "postal_code": "",
+      "country": "中国",
+      "lat": null,
+      "lon": null,
+      "websites": [],
+      "ids": {
+        "统一社会信用代码": "91120116238802206D"
+      },
+      "confidence": 1.0
+    }
+  },
+  {
+    "row_index": 9,
+    "input": {
+      "name": "Pacific Bridge, Inc.",
+      "address": "1155 Connecticut Ave Nw",
+      "city": "Washington",
+      "state": "DC",
+      "country": "US",
+      "postal_code": "20036"
+    },
+    "queries": {
+      "q_name": "Pacific Bridge, Inc.",
+      "q_name_geo": "Pacific Bridge, Inc. Washington United States",
+      "q_full_addr": "1155 Connecticut Ave Nw, Washington DC 20036, United States"
+    },
+    "timing_ms": 3276,
+    "success": false,
+    "message": "No results from the tools refer to the same organization as the input.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "No results from the tools refer to the same organization as the input.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 10,
+    "input": {
+      "name": "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd",
+      "address": "Rm 906, # 2 Building",
+      "city": "Zhong Shan Bei Yi Road",
+      "state": "SHANGHAI",
+      "country": "CN",
+      "postal_code": "200437"
+    },
+    "queries": {
+      "q_name": "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd",
+      "q_name_geo": "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd Zhong Shan Bei Yi Road China",
+      "q_full_addr": "Rm 906, # 2 Building, Zhong Shan Bei Yi Road SHANGHAI 200437, China"
+    },
+    "timing_ms": 7065,
+    "success": false,
+    "message": "The tools summary does not provide any results that directly refer to the input company, which is focused on electromechanical instruments, while the results are primarily related to Shanghai Electric and other unrelated companies.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "The tools summary does not provide any results that directly refer to the input company, which is focused on electromechanical instruments, while the results are primarily related to Shanghai Electric and other unrelated companies.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 11,
+    "input": {
+      "name": "Dec Prc Limited Beijing Service Station",
+      "address": "Office Tower,new Century Hotel F/5, No. 6 Nanwei Road Nan Alley",
+      "city": "Beijing",
+      "state": "BEIJING",
+      "country": "CN",
+      "postal_code": "100050"
+    },
+    "queries": {
+      "q_name": "Dec Prc Limited Beijing Service Station",
+      "q_name_geo": "Dec Prc Limited Beijing Service Station Beijing China",
+      "q_full_addr": "Office Tower,new Century Hotel F/5, No. 6 Nanwei Road Nan Alley, Beijing BEIJING 100050, China"
+    },
+    "timing_ms": 3775,
+    "success": false,
+    "message": "No relevant information found linking the input company to the tool results.",
+    "public_presence": false,
+    "websites": [],
+    "evidence_count": 0,
+    "notes": "No relevant information found linking the input company to the tool results.",
+    "enriched_mdm": {}
+  },
+  {
+    "row_index": 12,
+    "input": {
+      "name": "北京纳威尔格质量咨询有限公司",
+      "address": "分行西便门分理处",
+      "city": "交行北京市",
+      "state": "北京市",
+      "country": "CN",
+      "postal_code": "100031"
+    },
+    "queries": {
+      "q_name": "北京纳威尔格质量咨询有限公司",
+      "q_name_geo": "北京纳威尔格质量咨询有限公司 交行北京市 China",
+      "q_full_addr": "分行西便门分理处, 交行北京市 北京市 100031, China"
+    },
+    "timing_ms": 25002,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [],
+    "evidence_count": 6,
+    "notes": "The company name and address were confirmed through multiple Tavily sources.; dropped_unverified: websites",
+    "enriched_mdm": {
+      "canonical_name": "纳威尔格（北京）管理咨询有限公司",
+      "aka": [],
+      "address": "分行西便门分理处",
+      "city": "交行北京市",
+      "state": "北京市",
+      "postal_code": "100031",
+      "country": "CN",
+      "lat": null,
+      "lon": null,
+      "websites": [],
+      "ids": {},
+      "confidence": 1.0
+    }
+  },
+  {
+    "row_index": 13,
+    "input": {
+      "name": "Beria Consultants Ltd",
+      "address": "2/F CONCORD COMMERCIAL BUILDING, 157 KING'S ROAD,",
+      "city": "HONG KONG",
+      "state": "HONG KONG",
+      "country": "CN",
+      "postal_code": "-"
+    },
+    "queries": {
+      "q_name": "Beria Consultants Ltd",
+      "q_name_geo": "Beria Consultants Ltd HONG KONG Hong Kong",
+      "q_full_addr": "2/F CONCORD COMMERCIAL BUILDING, 157 KING'S ROAD,, HONG KONG HONG KONG, Hong Kong"
+    },
+    "timing_ms": 20375,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [
+      "https://archello.com/brand/beria-consultants-ltd",
+      "https://beria.com.hk/"
+    ],
+    "evidence_count": 7,
+    "notes": "The company name and address were confirmed through Tavily sources, with the city specified as North Point.",
+    "enriched_mdm": {
+      "canonical_name": "Beria Consultants Ltd.",
+      "aka": [],
+      "address": "2/F CONCORD COMMERCIAL BUILDING, 157 KING'S ROAD,",
+      "city": "North Point",
+      "state": "HONG KONG",
+      "postal_code": "",
+      "country": "CN",
+      "lat": null,
+      "lon": null,
+      "websites": [
+        "https://archello.com/brand/beria-consultants-ltd",
+        "https://beria.com.hk/"
+      ],
+      "ids": {},
+      "confidence": 0.0
+    }
+  },
+  {
+    "row_index": 14,
+    "input": {
+      "name": "Growinet Ltd",
+      "address": "SUTE 1900,TUNG WAH MANSION, 199-203 HENNESSY ROAD",
+      "city": "HONG KONG",
+      "state": "HONG KONG",
+      "country": "CN",
+      "postal_code": "-"
+    },
+    "queries": {
+      "q_name": "Growinet Ltd",
+      "q_name_geo": "Growinet Ltd HONG KONG Hong Kong",
+      "q_full_addr": "SUTE 1900,TUNG WAH MANSION, 199-203 HENNESSY ROAD, HONG KONG HONG KONG, Hong Kong"
+    },
+    "timing_ms": 15959,
+    "success": true,
+    "message": "OK",
+    "public_presence": true,
+    "websites": [
+      "http://www.growinet.com.hk"
+    ],
+    "evidence_count": 6,
+    "notes": "Data assembled from Tavily sources, providing address and website information.",
+    "enriched_mdm": {
+      "canonical_name": "Growinet Limited",
+      "aka": [],
+      "address": "RM 1902 19/F Tung Wah Mansion 199-203 Hennessy RD",
+      "city": "Wan Chai",
+      "state": "Hong Kong",
+      "postal_code": "",
+      "country": "Hong Kong (China)",
+      "lat": null,
+      "lon": null,
+      "websites": [
+        "http://www.growinet.com.hk"
+      ],
+      "ids": {},
+      "confidence": 0.0
+    }
+  }
+]
