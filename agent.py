@@ -4,11 +4,14 @@ import json
 from pathlib import Path
 import sys
 from typing import Any, Dict, List, TypedDict
-import pandas as pd
 
 # IMPORTANT: import the actual functions, not the modules
 from functions.searchFunction import read_input_rows, run_batch
 from functions.processSearchResults import process_results
+from functions.ComparisonFunction import ComparisonFunction
+from functions.Generate_CSV import GenerateCSVTool
+
+comparisonTool = ComparisonFunction().compare_records
 
 from langgraph.graph import StateGraph, END
 
@@ -35,7 +38,7 @@ def search_and_process_node(state: PipelineState) -> PipelineState:
     raw_path = state["rawSearchResultsPath"]
     processed_path = state["processedSearchResultsPath"]
 
-    print(f"[INFO] Starting unified search + process node")
+    print("[INFO] Starting unified search + process node")
     print(f"[INFO] Processing {len(records)} record(s)...\n")
 
     # -----------------------------------------
@@ -79,7 +82,39 @@ def search_and_process_node(state: PipelineState) -> PipelineState:
         raise
 
     # -----------------------------------------
-    # Step 5: Return updated state
+    # Step 5: Compare Input vs Processed Results
+    # -----------------------------------------
+
+    try:
+        comparison = comparisonTool(records, processed.get("searchResults", []))
+        print("\n[INFO] Comparison of Input vs Processed Results:")
+        print(f"Comparison Results: {json.dumps(comparison, indent=2, ensure_ascii=False)}")
+    except Exception as e:
+        print(f"[ERROR] ComparisonFunction failed: {e}")
+        raise
+
+    # -----------------------------------------
+    # Step 6: Return updated state
+    # ----------------------------------------- 
+
+    try:
+        csv_tool = GenerateCSVTool()
+        # processed is expected to be a dict with key "searchResults" -> list aligned with records
+        processed_list = processed.get("searchResults") if isinstance(processed, dict) else None
+        if processed_list is None:
+            # if processed format is unexpected, just wrap processed to keep CSV call tolerant
+            processed_list = processed
+
+        # Build CSV path next to processed JSON output
+        csv_path = Path(processed_path).with_name("comparison_input_output.csv")
+        csv_tool.run(records, processed_list, out_path=str(csv_path))
+        print(f"[INFO] Comparison CSV written to {csv_path}")
+    except Exception as e:
+        # non-fatal: pipeline continues; but log the issue
+        print(f"[WARN] Failed to write comparison CSV: {e}", file=sys.stderr)
+
+    # -----------------------------------------
+    # Step 7: Return updated state
     # -----------------------------------------
     return {
         **state,
