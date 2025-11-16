@@ -5,7 +5,15 @@
     "city": "Beijing",
     "state": "BEIJING",
     "country": "CN",
-    "postal_code": "100089"
+    "postal_code": "100089",
+    "DNB": {
+      "primary_name": "Beijing Zhongcan Foundation New Materials Co., Ltd.",
+      "primary_address": "F-224, No.86, Changyang Wanxing Road, Fangshan District",
+      "primary_city": "Beijing",
+      "primary_state": "",
+      "primary_postal_code": "100000",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "Engineered Services (australia) Pty. Limited",
@@ -13,7 +21,15 @@
     "city": "Springwood",
     "state": "QLD",
     "country": "AU",
-    "postal_code": "4127"
+    "postal_code": "4127",
+    "DNB": {
+      "primary_name": "ENGINEERING SERVICES AUSTRALIA PTY. LTD.",
+      "primary_address": "",
+      "primary_city": "",
+      "primary_state": "",
+      "primary_postal_code": "2138",
+      "primary_country": "AU"
+    }
   },
   {
     "name": "No.6 Mechanical Design & Research Institute",
@@ -21,7 +37,15 @@
     "city": "Shēnzhènshì",
     "state": "GUǍNGDŌNGSHĚNG",
     "country": "CN",
-    "postal_code": "518027"
+    "postal_code": "518027",
+    "DNB": {
+      "primary_name": "Tianjin The Sixth Electrical Appliance Switch Plant (General Parternship)",
+      "primary_address": "No.5, Zhangxingzhuang North Road",
+      "primary_city": "Tianjin",
+      "primary_state": "",
+      "primary_postal_code": "300402",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "Bas Engineering Limited",
@@ -29,7 +53,15 @@
     "city": "HONG KONG",
     "state": "HONG KONG",
     "country": "CN",
-    "postal_code": "-"
+    "postal_code": "-",
+    "DNB": {
+      "primary_name": "Xiamen Liansheng Business Management Co., Ltd.",
+      "primary_address": "35, 14F -1, Hangyun Building, No.809, Songyu M. Road, Xiamenpian District, China Pilot Free Trade Z",
+      "primary_city": "",
+      "primary_state": "",
+      "primary_postal_code": "",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "北京华力豪顺科技公司",
@@ -37,7 +69,15 @@
     "city": "BEIJING",
     "state": "CHINA",
     "country": "CN",
-    "postal_code": "."
+    "postal_code": ".",
+    "DNB": {
+      "primary_name": "安徽力豪科技有限公司",
+      "primary_address": "蜀山区黄山路建业领翔2512室",
+      "primary_city": "合肥",
+      "primary_state": "安徽",
+      "primary_postal_code": "230000",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "施耐德电气中国投资有限公司",
@@ -45,7 +85,15 @@
     "city": "BEIJING",
     "state": "CHINA",
     "country": "CN",
-    "postal_code": "."
+    "postal_code": ".",
+    "DNB": {
+      "primary_name": "施耐德电气(中国)投资有限公司",
+      "primary_address": "朝阳区将台路2号和乔丽晶中心施耐德大厦",
+      "primary_city": "",
+      "primary_state": "北京",
+      "primary_postal_code": "130012",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "中国金山联合贸易有限责任公司",
@@ -53,7 +101,15 @@
     "city": "SHANGHAI",
     "state": "CHINA",
     "country": "CN",
-    "postal_code": "."
+    "postal_code": ".",
+    "DNB": {
+      "primary_name": "中国金山联合贸易有限责任公司",
+      "primary_address": "金山区金一东路1号金山宾馆南8楼",
+      "primary_city": "",
+      "primary_state": "上海",
+      "primary_postal_code": "200540",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "能殷自动化贸易(深圳)有限公司",
@@ -61,7 +117,15 @@
     "city": "SHENZHEN",
     "state": "CHINA",
     "country": "CN",
-    "postal_code": "."
+    "postal_code": ".",
+    "DNB": {
+      "primary_name": "能殷自动化贸易(深圳)有限公司",
+      "primary_address": "上步中路工会大厦B座6楼西",
+      "primary_city": "深圳",
+      "primary_state": "广东",
+      "primary_postal_code": "518031",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "天津市开发区泰达大厦房地产开发有限公司泰达俱乐部",
@@ -69,7 +133,15 @@
     "city": "TIANJIN",
     "state": "CHINA",
     "country": "CN",
-    "postal_code": "."
+    "postal_code": ".",
+    "DNB": {
+      "primary_name": "天津泰达万通房地产开发有限公司",
+      "primary_address": "解放南路256号",
+      "primary_city": "",
+      "primary_state": "天津",
+      "primary_postal_code": "300100",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "Pacific Bridge, Inc.",
@@ -77,7 +149,15 @@
     "city": "Washington",
     "state": "DC",
     "country": "US",
-    "postal_code": "20036"
+    "postal_code": "20036",
+    "DNB": {
+      "primary_name": "America Votes",
+      "primary_address": "1155 Connecticut Ave NW Ste 600",
+      "primary_city": "Washington",
+      "primary_state": "",
+      "primary_postal_code": "20036",
+      "primary_country": "US"
+    }
   },
   {
     "name": "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd",
@@ -85,7 +165,15 @@
     "city": "Zhong Shan Bei Yi Road",
     "state": "SHANGHAI",
     "country": "CN",
-    "postal_code": "200437"
+    "postal_code": "200437",
+    "DNB": {
+      "primary_name": "Shanghai Jingming Electric Instrument Complete Set Co., Ltd.",
+      "primary_address": "No.8, Baziqiao Road, Jianghai Economic Park, Fengxian District",
+      "primary_city": "Shanghai",
+      "primary_state": "",
+      "primary_postal_code": "201400",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "Dec Prc Limited Beijing Service Station",
@@ -93,7 +181,15 @@
     "city": "Beijing",
     "state": "BEIJING",
     "country": "CN",
-    "postal_code": "100050"
+    "postal_code": "100050",
+    "DNB": {
+      "primary_name": "Instrimpex-dec Beijing Service Station",
+      "primary_address": "Floor 5, South Building, B3, Huayuan Road, Haidian District, Beijing",
+      "primary_city": "Beijing",
+      "primary_state": "",
+      "primary_postal_code": "100083",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "北京纳威尔格质量咨询有限公司",
@@ -101,7 +197,15 @@
     "city": "交行北京市",
     "state": "北京市",
     "country": "CN",
-    "postal_code": "100031"
+    "postal_code": "100031",
+    "DNB": {
+      "primary_name": "纳威尔格(北京)管理咨询有限公司",
+      "primary_address": "西城区宣武门西大街甲129号金隅大厦1218室",
+      "primary_city": "",
+      "primary_state": "北京",
+      "primary_postal_code": "100031",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "Beria Consultants Ltd",
@@ -109,7 +213,15 @@
     "city": "HONG KONG",
     "state": "HONG KONG",
     "country": "CN",
-    "postal_code": "-"
+    "postal_code": "-",
+    "DNB": {
+      "primary_name": "Burqin County Chonghuer Town Chunmei Vegetables Plantation Specialty Cooperative",
+      "primary_address": "Kuxugen Village, Chonghuer Town, Burqin County",
+      "primary_city": "Altay Prefecture",
+      "primary_state": "",
+      "primary_postal_code": "836300",
+      "primary_country": "CN"
+    }
   },
   {
     "name": "Growinet Ltd",
@@ -117,6 +229,14 @@
     "city": "HONG KONG",
     "state": "HONG KONG",
     "country": "CN",
-    "postal_code": "-"
+    "postal_code": "-",
+    "DNB": {
+      "primary_name": "Nantong Growi Co., Ltd.",
+      "primary_address": "No.8, Changqing Road, The Summit, Economic Development Zone",
+      "primary_city": "Nantong",
+      "primary_state": "",
+      "primary_postal_code": "226010",
+      "primary_country": "CN"
+    }
   }
 ]

@@ -1,110 +1,157 @@
-import pandas as pd
+# functions/Generate_CSV.py
+
+from __future__ import annotations
+
+import csv
+from dataclasses import asdict, is_dataclass
+from typing import Any, Dict, List, Optional
+
 
 class GenerateCSVTool:
-    """Writes input_data and search_result_data side-by-side with prefixed column names."""
+    """
+    Take:
+      - input_rows: list of original input records (MDMData dataclasses or dicts)
+      - processed_rows: list of raw OutputRow dicts
+      - dnb_rows (optional): parallel list of DNB/PRIMARY dicts when --use-dnb is enabled
 
-    def _to_df(self, data):
-        if isinstance(data, dict):
-            return pd.DataFrame([data])
-        if isinstance(data, list):
-            return pd.DataFrame(data)
-        raise TypeError("data must be a dict or list of dicts")
-
-    def _sanitize_col(self, col):
-        return str(col).strip().replace(" ", "_")
+    Produce:
+      - a single CSV with:
+          * all input fields
+          * enriched_mdm flattened as enriched_*
+          * optional dnb_* columns
+          * meta columns: row_index, success, message, evidence_count
+    """
 
     def run(
         self,
-        input_data,
-        search_result_data,
-        out_path="output.csv",
-        input_prefix="input_",
-        output_prefix="output_",
-    ):
-        """Create CSV with prefixed input/output columns side-by-side.
+        input_rows: List[Any],
+        processed_rows: List[Dict[str, Any]],
+        out_path: str,
+        dnb_rows: Optional[List[Dict[str, Any]]] = None,
+    ) -> None:
+        # ------------------------------
+        # 1) Normalize input_rows -> dicts
+        # ------------------------------
+        norm_inputs: List[Dict[str, Any]] = []
+        for r in input_rows:
+            if is_dataclass(r):
+                norm_inputs.append(asdict(r))
+            elif isinstance(r, dict):
+                norm_inputs.append(r)
+            else:
+                norm_inputs.append({"_raw_input": str(r)})
 
-        Args:
-            input_data: dict or list[dict] for the left-hand (input) side.
-            search_result_data: dict or list[dict] for the right-hand (search result) side.
-            out_path: output CSV path.
-        Returns:
-            The path to the written CSV file.
-        """
-        df_input = self._to_df(input_data).reset_index(drop=True)
-        df_search = self._to_df(search_result_data).reset_index(drop=True)
+        # Make sure lengths line up reasonably
+        n = min(len(norm_inputs), len(processed_rows))
+        norm_inputs = norm_inputs[:n]
+        processed_rows = processed_rows[:n]
 
-        len_input = len(df_input)
-        len_search = len(df_search)
-        max_len = max(len_input, len_search, 1)
-
-        # replicate single-row side when the other side is longer
-        if len_input == 1 and len_search > 1:
-            df_input = pd.DataFrame([df_input.iloc[0].to_dict()] * len_search)
-        elif len_search == 1 and len_input > 1:
-            df_search = pd.DataFrame([df_search.iloc[0].to_dict()] * len_input)
+        if dnb_rows is None:
+            dnb_rows = [None] * n
         else:
-            if len_input != max_len:
-                df_input = df_input.reindex(range(max_len)).reset_index(drop=True)
-            if len_search != max_len:
-                df_search = df_search.reindex(range(max_len)).reset_index(drop=True)
+            dnb_rows = (dnb_rows + [None] * n)[:n]
 
-        # Build rename maps with sanitized column names
-        input_rename = {col: f"{input_prefix}{self._sanitize_col(col)}" for col in df_input.columns}
-        output_rename = {col: f"{output_prefix}{self._sanitize_col(col)}" for col in df_search.columns}
+        # ------------------------------
+        # 2) Discover all keys for columns
+        # ------------------------------
+        input_keys = set()
+        enriched_keys = set()
+        dnb_keys = set()
 
-        df_input_renamed = df_input.rename(columns=input_rename)
-        df_search_renamed = df_search.rename(columns=output_rename)
+        for base, proc, dnb in zip(norm_inputs, processed_rows, dnb_rows):
+            base = base or {}
+            proc_d = proc if isinstance(proc, dict) else {}
 
-        # Concatenate side-by-side with input columns first
-        out_df = pd.concat([df_input_renamed.reset_index(drop=True), df_search_renamed.reset_index(drop=True)], axis=1)
+            # Input fields (from the original MDM input)
+            input_keys.update(base.keys())
 
-        out_df.to_csv(out_path, index=False)
-        return out_path
+            # Enriched MDM fields (from raw OutputRow)
+            enriched = (
+                proc_d.get("enriched_mdm")
+                or proc_d.get("enrichedMDM")
+                or proc_d.get("output_mdm")
+                or {}
+            )
+            if isinstance(enriched, dict):
+                enriched_keys.update(enriched.keys())
 
+            # DNB fields (when present)
+            if isinstance(dnb, dict):
+                dnb_keys.update(dnb.keys())
 
-if __name__ == "__main__":
-    csv_tool = GenerateCSVTool()
+        # Deterministic ordering
+        input_cols = sorted(input_keys)
+        enriched_cols = sorted(enriched_keys)
+        dnb_cols = sorted(dnb_keys)
 
-    sample_input = [
-        {
-            "parent company": "Amazon",
-            "company address": "932 California Ln",
-            "company state": "CA",
-            "company country": "US",
-            "postal code": "12212"
-        },
-        {
-            "parent company": "Amazon",
-            "company address": "111 Cal St",
-            "company state": "CA",
-            "company country": "US",
-            "postal code": "00000"
-        },
-        {
-            "parent company": "Amazon",
-            "company address": "12 Col Monro3 St",
-            "company state": "MA",
-            "company country": "US",
-            "postal code": "33441"
-        }
-    ]
+        # Meta columns we always include
+        meta_cols = ["row_index", "success", "message", "evidence_count"]
 
-    sample_search_results = [
-        {
-            "parent company": "Amazon",
-            "company address": "33 Hellow World Ln",
-            "company state": "YT",
-            "company country": "US",
-            "postal code": "23245"
-        },
-        {
-            "parent company": "Amazon",
-            "company address": "44 Another Ave",
-            "company state": "NC",
-            "company country": "US",
-            "postal code": "28211"
-        }
-    ]
+        # ------------------------------
+        # 3) Build the CSV header
+        # ------------------------------
+        header: List[str] = []
+        header.extend(input_cols)
+        header.extend(f"enriched_{k}" for k in enriched_cols)
 
-    out_file = csv_tool.run(sample_input, sample_search_results, out_path="example_prefixed.csv")
-    print("CSV saved to:", out_file)
+        # Only add DNB columns if we actually have any DNB data
+        has_any_dnb = any(isinstance(d, dict) and d for d in dnb_rows)
+        if has_any_dnb:
+            header.extend(f"dnb_{k}" for k in dnb_cols)
+
+        header.extend(meta_cols)
+
+        # ------------------------------
+        # 4) Write rows
+        # ------------------------------
+        with open(out_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=header)
+            writer.writeheader()
+
+            for idx, (base, proc, dnb) in enumerate(zip(norm_inputs, processed_rows, dnb_rows)):
+                row: Dict[str, Any] = {}
+
+                base = base or {}
+                proc_d = proc if isinstance(proc, dict) else {}
+
+                enriched = (
+                    proc_d.get("enriched_mdm")
+                    or proc_d.get("enrichedMDM")
+                    or proc_d.get("output_mdm")
+                    or {}
+                )
+                if not isinstance(enriched, dict):
+                    enriched = {}
+
+                # ---- Input columns (from original MDMData)
+                for k in input_cols:
+                    row[k] = base.get(k, "")
+
+                # ---- Enriched MDM columns
+                for k in enriched_cols:
+                    row[f"enriched_{k}"] = enriched.get(k, "")
+
+                # ---- DNB columns (if any)
+                if has_any_dnb and isinstance(dnb, dict):
+                    for k in dnb_cols:
+                        row[f"dnb_{k}"] = dnb.get(k, "")
+                elif has_any_dnb:
+                    # No DNB for this row => leave blanks
+                    for k in dnb_cols:
+                        row[f"dnb_{k}"] = ""
+
+                # ---- Meta columns
+                row["row_index"] = (
+                    proc_d.get("row_index")
+                    or proc_d.get("rowIndex")
+                    or idx
+                )
+                row["success"] = proc_d.get("success", "")
+                row["message"] = proc_d.get("message", "")
+                row["evidence_count"] = (
+                    proc_d.get("evidence_count")
+                    or proc_d.get("evidenceCount")
+                    or ""
+                )
+
+                writer.writerow(row)
