@@ -23,7 +23,7 @@ import os
 import json
 import time
 import pathlib
-from dataclasses import dataclass, asdict
+from dataclasses import asdict
 from typing import Any, Dict, List, Optional, Tuple
 
 import requests
@@ -120,10 +120,11 @@ def openai_chat(
 
 # ============ LLM Query Builder (no fallback) ============
 
-def llm_build_queries_source_only(m: MDMData, row_idx: int) -> QueryData:
+def llm_build_queries_source_only(m: MDMData, row_idx: int, refinement_feedback: Optional[Dict[str, Any]] = None) -> QueryData:
     """
     Use an LLM to deterministically construct query strings from the raw MDMData
     based ONLY on the SOURCE_* view (current behavior).
+    Can optionally use refinement_feedback from validator to improve queries.
     """
     system_prompt = (
         "You are a query builder for an MDM (Master Data Management) enrichment pipeline.\n"
@@ -142,11 +143,42 @@ def llm_build_queries_source_only(m: MDMData, row_idx: int) -> QueryData:
         "- For q_full_addr, include as much specific address detail as is reasonable in one line.\n"
         "- Always return STRICT JSON, with keys exactly: q_name, q_name_geo, q_full_addr.\n"
     )
+    
+    # Add refinement guidance if feedback is provided
+    if refinement_feedback:
+        feedback_guidance = "\n\n=== REFINEMENT GUIDANCE ===\n"
+        feedback_guidance += "Previous search had issues. Consider the following when building queries:\n"
+
+        if "provenance_quality_score" in refinement_feedback:
+            feedback_guidance += f"- Provenance quality score: {refinement_feedback['provenance_quality_score']:.2f}\n"
+        
+        if "issues" in refinement_feedback and refinement_feedback["issues"]:
+            feedback_guidance += "- Issues found:\n"
+            for issue in refinement_feedback["issues"]:
+                feedback_guidance += f"  * {issue.get('issue_type', 'unknown')}: {issue.get('description', '')}\n"
+        
+        if "suggested_actions" in refinement_feedback:
+            feedback_guidance += "- Suggested actions:\n"
+            for action in refinement_feedback["suggested_actions"]:
+                feedback_guidance += f"  * {action}\n"
+        
+        if "recommendations" in refinement_feedback:
+            feedback_guidance += "- Recommendations:\n"
+            for rec in refinement_feedback["recommendations"]:
+                feedback_guidance += f"  * {rec}\n"
+        
+        system_prompt += feedback_guidance
 
     user_payload = {
         "mode": "source_only",
         "input_record": asdict(m),
     }
+    
+    if refinement_feedback:
+        user_payload["refinement_context"] = {
+            "is_refinement": True,
+            "focus_areas": refinement_feedback.get("suggested_actions", []),
+        }
 
     if MERGE_DEBUG or DEBUG_RAW:
         debug_dump_raw(row_idx, "query_builder_source_request", user_payload, ext="json")
@@ -157,7 +189,7 @@ def llm_build_queries_source_only(m: MDMData, row_idx: int) -> QueryData:
             {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
         ],
         model=QUERY_BUILDER_MODEL,
-        temperature=0.0,
+        temperature=0.5 if refinement_feedback else 0.0,
         json_mode=True,
     )
 
@@ -177,10 +209,12 @@ def llm_build_queries_with_dnb(
     m: MDMData,
     dnb: Optional[Dict[str, Any]],
     row_idx: int,
+    refinement_feedback: Optional[Dict[str, Any]] = None,
 ) -> QueryData:
     """
     LLM query builder that sees BOTH SOURCE (MDMData) and a DNB/PRIMARY dict
     and still produces one QueryData (q_name, q_name_geo, q_full_addr).
+    Can optionally use refinement_feedback from validator to improve queries.
     """
     dnb_safe: Dict[str, Any] = dnb or {}
 
@@ -202,12 +236,43 @@ def llm_build_queries_with_dnb(
         "with keys exactly: q_name, q_name_geo, q_full_addr.\n"
         "Do not include any extra keys or text outside the JSON."
     )
+    
+    # Add refinement guidance if feedback is provided
+    if refinement_feedback:
+        feedback_guidance = "\n\n=== REFINEMENT GUIDANCE ===\n"
+        feedback_guidance += "Previous search had issues. Consider the following when building queries:\n"
+
+        if "provenance_quality_score" in refinement_feedback:
+            feedback_guidance += f"- Provenance quality score: {refinement_feedback['provenance_quality_score']:.2f}\n"
+        
+        if "issues" in refinement_feedback and refinement_feedback["issues"]:
+            feedback_guidance += "- Issues found:\n"
+            for issue in refinement_feedback["issues"]:
+                feedback_guidance += f"  * {issue.get('issue_type', 'unknown')}: {issue.get('description', '')}\n"
+        
+        if "suggested_actions" in refinement_feedback:
+            feedback_guidance += "- Suggested actions:\n"
+            for action in refinement_feedback["suggested_actions"]:
+                feedback_guidance += f"  * {action}\n"
+        
+        if "recommendations" in refinement_feedback:
+            feedback_guidance += "- Recommendations:\n"
+            for rec in refinement_feedback["recommendations"]:
+                feedback_guidance += f"  * {rec}\n"
+        
+        system_prompt += feedback_guidance
 
     user_payload = {
         "mode": "source_plus_dnb",
         "source_record": asdict(m),
         "dnb_record": dnb_safe,
     }
+    
+    if refinement_feedback:
+        user_payload["refinement_context"] = {
+            "is_refinement": True,
+            "focus_areas": refinement_feedback.get("suggested_actions", []),
+        }
 
     if MERGE_DEBUG or DEBUG_RAW:
         debug_dump_raw(row_idx, "query_builder_dnb_request", user_payload, ext="json")
@@ -219,7 +284,7 @@ def llm_build_queries_with_dnb(
                 {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
             ],
             model=QUERY_BUILDER_MODEL,
-            temperature=0.0,
+            temperature=0.5 if refinement_feedback else 0.0,
             json_mode=True,
         )
     except Exception as e:
@@ -245,16 +310,18 @@ def build_queries(
     row_idx: int,
     use_dnb: bool = False,
     dnb: Optional[Dict[str, Any]] = None,
+    refinement_feedback: Optional[Dict[str, Any]] = None,
 ) -> QueryData:
     """
     Wrapper used by the rest of the pipeline.
 
     - use_dnb=False  -> source-only behavior (current default)
     - use_dnb=True   -> combine SOURCE + DNB/PRIMARY dict
+    - refinement_feedback: Optional validation feedback to improve query building
     """
     if use_dnb:
-        return llm_build_queries_with_dnb(m, dnb, row_idx)
-    return llm_build_queries_source_only(m, row_idx)
+        return llm_build_queries_with_dnb(m, dnb, row_idx, refinement_feedback)
+    return llm_build_queries_source_only(m, row_idx, refinement_feedback)
 
 
 # ============ LLM Relevance Gate ============
@@ -470,6 +537,17 @@ def llm_merge_extract(
         "4) Prefer authoritative sources. If conflicting, leave blank or choose the one with the clearest citation.\n"
         "5) Provide per-field 'provenance' listing the source items and quotes/URLs you used.\n"
         "6) If nothing reliable is found, return empty fields.\n"
+        "7) Calculate 'confidence' (0.0-1.0) based on:\n"
+        "   - Entity match quality: How well the found entity matches the input name/location (0.0-0.4)\n"
+        "   - Evidence strength: Number and quality of sources (KG, Wikidata, Tavily, OSM) (0.0-0.3)\n"
+        "   - Data completeness: How many critical fields (name, address, city, country) were filled (0.0-0.2)\n"
+        "   - Provenance quality: Strength and specificity of source citations (0.0-0.1)\n"
+        "   EXAMPLES:\n"
+        "   - Perfect match, 3+ sources, all fields, strong provenance: 0.95-1.0\n"
+        "   - Good match, 2+ sources, most fields, good provenance: 0.75-0.85\n"
+        "   - Decent match, 1-2 sources, some fields, weak provenance: 0.50-0.65\n"
+        "   - Weak match, 1 source, few fields, vague provenance: 0.25-0.45\n"
+        "   - Poor match or no good evidence: 0.0-0.20\n"
         "RESPONSE FORMAT (preferred):\n"
         "{\n"
         '  "output_mdm": {"canonical_name":"", "aka":[], "address":"", "city":"", "state":"", "postal_code":"", '
@@ -574,7 +652,7 @@ def _is_effectively_empty_output(out: Dict[str, Any]) -> bool:
 # ============ Row processing ============
 
 def process_row(idx: int, m: MDMData,use_dnb: bool = False,
-    dnb: Optional[Dict[str, Any]] = None,) -> OutputRow:
+    dnb: Optional[Dict[str, Any]] = None, refinement_feedback: Optional[Dict[str, Any]] = None,) -> OutputRow:
     t0 = time.time()
 
     # 1) Build queries via LLM (hard dependency; no fallback)
@@ -583,6 +661,7 @@ def process_row(idx: int, m: MDMData,use_dnb: bool = False,
         row_idx=idx,
         use_dnb=use_dnb,
         dnb=dnb,
+        refinement_feedback=refinement_feedback,
     )
 
     # 2) Call external tools via the tools module
@@ -718,31 +797,39 @@ def run_batch(
     minimal_logging: bool = True,
     use_dnb: bool = False,
     dnb_rows: Optional[List[Dict[str, Any]]] = None,
+    refinement_feedback: Optional[Dict[int, Dict[str, Any]]] = None,
 ) -> List[OutputRow]:
     """
     Run the enrichment pipeline on a list of MDMData rows.
 
     - When use_dnb=False: behaves exactly as before.
     - When use_dnb=True: passes the corresponding DNB dict for each row into process_row.
+    - refinement_feedback: Optional dict mapping record index to validation feedback for refinement
     """
     outputs: List[OutputRow] = []
     dnb_rows = dnb_rows or []
+    refinement_feedback = refinement_feedback or {}
 
     for idx, m in enumerate(rows):
         if minimal_logging:
+            refinement_note = " [REFINEMENT]" if idx in refinement_feedback else ""
             print(
                 f'[ROW {idx}] "{(m.name or "").strip()}" '
-                f'({(m.city or "").strip()}, {(m.country or "").strip()})'
+                f'({(m.city or "").strip()}, {(m.country or "").strip()}){refinement_note}'
             )
         dnb_for_row: Optional[Dict[str, Any]] = None
         if use_dnb and idx < len(dnb_rows):
             dnb_for_row = dnb_rows[idx]
+        
+        feedback_for_row = refinement_feedback.get(idx, None)
+        
         try:
             out_row = process_row(
                 idx=idx,
                 m=m,
                 use_dnb=use_dnb,
                 dnb=dnb_for_row,
+                refinement_feedback=feedback_for_row,
             )
         except Exception as e:
             out_row = OutputRow(

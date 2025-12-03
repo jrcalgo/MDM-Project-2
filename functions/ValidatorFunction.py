@@ -16,11 +16,8 @@ from dataclasses import dataclass, asdict
 
 from .searchFunction import openai_chat
 
-MAX_VALIDATION_ITERATIONS = 3
+MAX_VALIDATION_ITERATIONS = 2
 VALIDATION_MODEL = "gpt-4.1-mini"
-
-from dotenv import load_dotenv
-load_dotenv()
 
 # ============ Dataclasses for LLM Output ============
 
@@ -61,7 +58,7 @@ class ValidationScrutiny:
 @dataclass
 class ValidationResult:
     """Output from validation process."""
-    status: Literal["pass", "needs_refinement", "fail"]
+    status: Literal["pass", "needs_refinement", "fail", "validation_done"]
     confidence_meets_threshold: bool
     threshold_used: float
     actual_confidence: float
@@ -402,8 +399,8 @@ class ValidatorFunction:
                 self._log("Max iterations reached but results acceptable")
                 return "pass", True, None
             else:
-                self._log("Max iterations reached, rejecting")
-                return "fail", False, None
+                self._log("Max iterations reached, ending validation")
+                return "validation_done", False, None
         
         if not search_success:
             suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
