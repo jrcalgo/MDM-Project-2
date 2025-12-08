@@ -11,7 +11,8 @@ from functions.searchFunction import run_batch
 from utils.read_input_records import read_input_rows
 from functions.processSearchResults import process_results
 from functions.ComparisonFunction import ComparisonFunction
-from functions.ValidatorFunction import ValidatorFunction, ValidationResult, MAX_VALIDATION_ITERATIONS
+from functions.ValidatorFunction import ValidatorFunction, ValidationResult
+import functions.ValidatorFunction as validator_module
 from functions.Generate_CSV import GenerateCSVTool
 
 from langgraph.graph import StateGraph, START, END
@@ -266,7 +267,7 @@ def search_and_process_node(state: PipelineState) -> PipelineState:
 def validator_node(state: PipelineState) -> PipelineState:
     """
     Validate search results using ValidatorFunction.
-    
+
     Reads input_MDM.json and comparison_input_output.csv, then validates each
     record using the ValidatorFunction. Aggregates results to determine overall
     decision for routing.
@@ -274,13 +275,13 @@ def validator_node(state: PipelineState) -> PipelineState:
     raw_results = state.get("rawResults", [])
     loop_count = state.get("validationLoopCount", 0)
     processed_path = state.get("processedSearchResultsPath", "./data/processedSearchResults.json")
-    
+
     processed_path_obj = Path(processed_path)
     output_dir = processed_path_obj.parent
-    
+
     print(f"\n[INFO] Validator node starting (iteration {loop_count})...")
     print(f"[INFO] Validating {len(raw_results)} record(s)...")
-    
+
     # Handle empty results
     if not raw_results:
         print("[WARN] No raw results to validate")
@@ -290,8 +291,8 @@ def validator_node(state: PipelineState) -> PipelineState:
             "validatorResults": {},
             "validationLoopCount": loop_count + 1,
         }
-    
 
+    # ---- Load input_MDM.json (not strictly required, but useful/logging) ----
     input_mdm_path = output_dir / "input_MDM.json"
     input_records = []
     if input_mdm_path.exists():
@@ -303,41 +304,40 @@ def validator_node(state: PipelineState) -> PipelineState:
             print(f"[WARN] Failed to read input_MDM.json: {e}")
     else:
         print(f"[WARN] input_MDM.json not found at {input_mdm_path}")
-    
 
+    # ---- Load comparison_input_output.csv for LLM comparison context ----
     csv_path = output_dir / "comparison_input_output.csv"
     comparison_reports = _parse_comparison_csv(csv_path)
     print(f"[INFO] Loaded {len(comparison_reports)} comparison reports from CSV")
-    
 
     validator_results: Dict[str, ValidationResult] = {}
-    decisions = []
+    decisions: List[str] = []
     records_needing_refinement: List[int] = []
-    
+
     # Get previously failed indices, these won't get another chance
     previously_failed = state.get("previouslyFailedIndices", [])
     new_failures: List[int] = []
-    
+
     for idx, result in enumerate(raw_results):
         input_data = result.get("input", {})
         record_id = input_data.get("name", f"record_{idx}")
-        
+
         comparison_report = None
         if idx < len(comparison_reports):
             comparison_report = comparison_reports[idx]
-        
+
         print(f"[INFO] Validating: {record_id}")
-        
+
         try:
             validation_result = validationTool(
                 search_output=result,
                 comparison_report=comparison_report,
-                iteration=loop_count
+                iteration=loop_count,
             )
-            
+
             validator_results[record_id] = validation_result
             decisions.append(validation_result.status)
-            
+
             if validation_result.status == "needs_refinement":
                 records_needing_refinement.append(idx)
             elif validation_result.status == "fail":
@@ -348,30 +348,104 @@ def validator_node(state: PipelineState) -> PipelineState:
                     print(f"[INFO]   -> First failure, giving one refinement chance")
                 else:
                     print(f"[INFO]   -> Already failed before, not retrying")
-            
-            print(f"[INFO]   -> status={validation_result.status}, confidence={validation_result.actual_confidence:.3f}")
-            
+
+            print(
+                f"[INFO]   -> status={validation_result.status}, "
+                f"confidence={validation_result.actual_confidence:.3f}"
+            )
+
         except Exception as e:
             print(f"[ERROR] Validation failed for {record_id}: {e}")
             decisions.append("fail")
-    
+
+    # Merge previously failed with new failures
     updated_previously_failed = list(set(previously_failed + new_failures))
-    
+
+    # ---- Decide overall decision based on per-record decisions ----
     if records_needing_refinement:
         overall_decision = "needs_refinement"
-    elif all(d == "pass" for d in decisions):
+    elif decisions and all(d == "pass" for d in decisions):
         overall_decision = "pass"
     else:
         overall_decision = "fail"
-    
-    if loop_count >= MAX_VALIDATION_ITERATIONS - 1:
+
+    # Use dynamic MAX_VALIDATION_ITERATIONS from validator_module
+    max_iters = getattr(validator_module, "MAX_VALIDATION_ITERATIONS", 2)
+    if loop_count >= max_iters - 1:
         overall_decision = "validation_done"
-        print(f"\n[INFO] MAX_VALIDATION_ITERATIONS ({MAX_VALIDATION_ITERATIONS}) reached. Ending validation.")
-    
+        print(f"\n[INFO] MAX_VALIDATION_ITERATIONS ({max_iters}) reached. Ending validation.")
+
     print(f"\n[INFO] Validation complete. Overall decision: {overall_decision}")
     print(f"[INFO] Individual decisions: {decisions}")
     print(f"[INFO] Records needing refinement: {records_needing_refinement}")
     print(f"[INFO] Previously failed (won't retry): {updated_previously_failed}")
+
+    # -----------------------------------------
+    # Persist validation results to JSON
+    # -----------------------------------------
+    try:
+        validation_output_path = output_dir / "validation_results.json"
+
+        # Convert ValidationResult dataclasses to plain dicts
+        serializable_results = {
+            record_id: asdict(result)
+            for record_id, result in validator_results.items()
+        }
+
+        validation_payload = {
+            "overall_decision": overall_decision,
+            "validation_loop": loop_count,
+            "records_needing_refinement": records_needing_refinement,
+            "previously_failed_indices": updated_previously_failed,
+            "decisions": decisions,
+            "results": serializable_results,
+        }
+
+        with validation_output_path.open("w", encoding="utf-8") as f:
+            json.dump(validation_payload, f, indent=2, ensure_ascii=False)
+
+        print(f"[INFO] Validation results written to {validation_output_path}")
+    except Exception as e:
+        print(f"[WARN] Failed to write validation_results.json: {e}", file=sys.stderr)
+
+    return {
+        **state,
+        "validatorDecision": overall_decision,
+        "validatorResults": validator_results,
+        "validationLoopCount": loop_count + 1,
+        "recordsToRefine": records_needing_refinement,
+        "previouslyFailedIndices": updated_previously_failed,
+    }
+
+
+    # -----------------------------------------
+    # Persist validation results to JSON
+    # -----------------------------------------
+    try:
+        validation_output_path = output_dir / "validation_results.json"
+
+        # Convert ValidationResult dataclasses to plain dicts
+        serializable_results = {
+            record_id: asdict(result)
+            for record_id, result in validator_results.items()
+        }
+
+        validation_payload = {
+            "overall_decision": overall_decision,
+            "validation_loop": loop_count,
+            "records_needing_refinement": records_needing_refinement,
+            "previously_failed_indices": updated_previously_failed,
+            "decisions": decisions,
+            "results": serializable_results,
+        }
+
+        with validation_output_path.open("w", encoding="utf-8") as f:
+            json.dump(validation_payload, f, indent=2, ensure_ascii=False)
+
+        print(f"[INFO] Validation results written to {validation_output_path}")
+    except Exception as e:
+        print(f"[WARN] Failed to write validation_results.json: {e}", file=sys.stderr)
+
     
     return {
         **state,
@@ -437,11 +511,18 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--input", default="./data/query_group2.csv", help="Path to input CSV/XLSX")
     p.add_argument("--output", default="./data/", help="Directory for output")
     p.add_argument(
-    "--use-dnb",
-    action="store_true",
-    help="Use DNB / PRIMARY_* fields along with SOURCE_* to build queries",
-)
+        "--use-dnb",
+        action="store_true",
+        help="Use DNB / PRIMARY_* fields along with SOURCE_* to build queries",
+    )
+    p.add_argument(
+        "--max-validations",
+        type=int,
+        default=None,
+        help="Max validation iterations (overrides default)",
+    )
     return p.parse_args()
+
 
 
 def _parse_comparison_csv(csv_path: Path) -> List[Dict[str, Any]]:
@@ -521,29 +602,45 @@ def _parse_comparison_csv(csv_path: Path) -> List[Dict[str, Any]]:
     
     return comparison_reports
 
-# ------------------------------------------------------------
-# Main
-# ------------------------------------------------------------
+from pathlib import Path
 
-def main() -> int:
-    args = parse_args()
+def run_pipeline(
+    input_path: str | Path,
+    output_dir: str | Path,
+    use_dnb: bool = False,
+    max_validation_iterations: int | None = None,
+) -> None:
+    """
+    Programmatic entrypoint for running the MDM pipeline.
 
-    input_path = Path(args.input)
-    output_dir = Path(args.output)
+    Args:
+        input_path: Path to input CSV/XLSX.
+        output_dir: Directory where all artifacts will be written.
+        use_dnb: Whether to use DNB data when reading inputs.
+        max_validation_iterations: If provided, overrides
+            functions.ValidatorFunction.MAX_VALIDATION_ITERATIONS for this run.
+    """
+    input_path = Path(input_path)
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     if not input_path.exists():
-        print(f"[ERROR] Input file not found: {input_path}", file=sys.stderr)
-        return 2
+        raise FileNotFoundError(f"Input file not found: {input_path}")
+
+    # Dynamically override max validation iterations if requested
+    if max_validation_iterations is not None and max_validation_iterations > 0:
+        print(f"[INFO] Setting MAX_VALIDATION_ITERATIONS = {max_validation_iterations}")
+        validator_module.MAX_VALIDATION_ITERATIONS = max_validation_iterations
 
     print("[INFO] Starting run")
     print(f"[INFO] Input : {input_path}")
+    print(f"[INFO] Output: {output_dir}")
 
     # -----------------------------------------
     # Step 1: Read input rows
     # -----------------------------------------
     try:
-        if args.use_dnb:
+        if use_dnb:
             # read_input_rows will return (records, dnb_rows) when use_dnb=True
             records, dnb_rows = read_input_rows(str(input_path), use_dnb=True)
         else:
@@ -568,7 +665,7 @@ def main() -> int:
 
     except Exception as e:
         print(f"[ERROR] Failed loading input rows: {e}")
-        return 1
+        raise
 
     # -----------------------------------------
     # Prepare pipeline state
@@ -585,23 +682,42 @@ def main() -> int:
         "recordsToRefine": [],
         "previouslyFailedIndices": [],
         "dnbData": dnb_rows,
-        "useDnb": bool(args.use_dnb),
+        "useDnb": bool(use_dnb),
     }
 
     # ------------------------------------------------------------
     # Run the LangGraph pipeline
     # ------------------------------------------------------------
+    graph = build_graph()
+    print("[INFO] Running unified LangGraph pipeline...\n")
+    final_state = graph.invoke(initial_state)
+    print("\n[INFO] Pipeline completed successfully.")
+
+
+
+# ------------------------------------------------------------
+# Main
+# ------------------------------------------------------------
+
+def main() -> int:
+    args = parse_args()
 
     try:
-        graph = build_graph()
-        print("[INFO] Running unified LangGraph pipeline...\n")
-        final_state = graph.invoke(initial_state)
+        run_pipeline(
+            input_path=args.input,
+            output_dir=args.output,
+            use_dnb=bool(args.use_dnb),
+            max_validation_iterations=args.max_validations,
+        )
+    except FileNotFoundError as e:
+        print(f"[ERROR] {e}", file=sys.stderr)
+        return 2
     except Exception as e:
         print(f"[ERROR] Pipeline failed: {e}")
         return 1
 
-    print("\n[INFO] Pipeline completed successfully.")
     return 0
+
 
 
 if __name__ == "__main__":

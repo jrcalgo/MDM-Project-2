@@ -16,59 +16,12 @@ from dataclasses import dataclass, asdict
 
 from .searchFunction import openai_chat
 
+from data_classes.mdm import IssueDetail,ConfidenceAssessment,ValidationScrutiny,ValidationResult
+
 MAX_VALIDATION_ITERATIONS = 2
 VALIDATION_MODEL = "gpt-4.1-mini"
 
-# ============ Dataclasses for LLM Output ============
 
-@dataclass
-class IssueDetail:
-    """Detailed issue found during validation."""
-    severity: str  # "critical", "high", "medium", "low"
-    issue_type: str  # "missing_field", "hallucination", "poor_provenance", etc.
-    field: str
-    description: str
-    evidence: str
-
-
-@dataclass
-class ConfidenceAssessment:
-    """Assessment of the confidence score."""
-    current_score: float
-    is_appropriate: bool
-    suggested_score: float
-    reasoning: str
-
-
-@dataclass
-class ValidationScrutiny:
-    """Complete LLM scrutiny response."""
-    overall_quality: str  # "high", "medium", "low"
-    provenance_quality_score: float  # 0.0-1.0
-    issues: List[Dict[str, Any]]
-    confidence_assessment: Dict[str, Any]
-    recommendations: List[str]
-    hallucination_detected: bool
-    missing_fields_available: List[str]
-    search_adequacy: str  # "sufficient", "insufficient", "poor"
-
-
-# ============ Output Dataclass ============
-
-@dataclass
-class ValidationResult:
-    """Output from validation process."""
-    status: Literal["pass", "needs_refinement", "fail", "validation_done"]
-    confidence_meets_threshold: bool
-    threshold_used: float
-    actual_confidence: float
-    issues_found: List[Dict[str, Any]]
-    recommendations: List[str]
-    validation_notes: str
-    approved_for_csv: bool
-    feedback_for_search: Optional[Dict[str, Any]]
-    provenance_quality_score: float
-    iteration_count: int
 
 
 # ============ Helper Functions ============
@@ -121,7 +74,7 @@ class ValidatorFunction:
     - Cross-validation between multiple sources
 
     BE HARSH BUT FAIR:
-    - If confidence score is > 0.7 for US OR > 0.8 for Non-US but evidence is weak, flag it as inappropriate
+    - If confidence score is > 0.8 for US OR > 0.7 for Non-US but evidence is weak, flag it as inappropriate
     - If canonical name doesn't closely match input, question the match
     - If address data is incomplete but OSM likely has it, mark as missing_fields_available
     - If data looks fabricated without tool evidence, mark hallucination_detected as true
@@ -162,7 +115,7 @@ class ValidatorFunction:
         
         # Determine threshold: US >= 0.7, Non-US >= 0.8
         is_us = is_us_country(country)
-        threshold = 0.7 if is_us else 0.8
+        threshold = 0.8 if is_us else 0.7
         
         actual_confidence = 0.0
         if search_output.get("enriched_mdm"):
@@ -384,53 +337,127 @@ class ValidatorFunction:
     ) -> tuple[str, bool, Optional[Dict[str, Any]]]:
         """
         Make final validation decision.
-        
+
         Returns: (status, approved_for_csv, feedback_for_search)
         """
         search_success = search_output.get("success", False)
-        
+        issues = scrutiny.issues or []
+
         critical_high_issues = [
-            i for i in scrutiny.issues
+            i for i in issues
             if i.get("severity") in ["critical", "high"]
         ]
-        
+
+        # Safety net: if someone ever calls this with iteration >= MAX_VALIDATION_ITERATIONS,
+        # accept if it's reasonably clean, otherwise mark as done/failed.
         if iteration >= MAX_VALIDATION_ITERATIONS:
             if search_success and confidence_meets_threshold and len(critical_high_issues) == 0:
-                self._log("Max iterations reached but results acceptable")
+                self._log("Max iterations reached but results acceptable; passing.")
                 return "pass", True, None
             else:
-                self._log("Max iterations reached, ending validation")
+                self._log("Max iterations reached with unresolved problems; ending validation.")
                 return "validation_done", False, None
-        
+
+        # If search itself failed, this is a hard problem.
+        # We return "fail" and let the outer pipeline decide whether to give it one retry.
         if not search_success:
             suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
-            feedback = self._generate_feedback(search_output, scrutiny, confidence_meets_threshold, suggested_score)
+            feedback = self._generate_feedback(
+                search_output,
+                scrutiny,
+                confidence_meets_threshold,
+                suggested_score,
+            )
+            self._log("Search not successful; marking as fail with feedback.")
             return "fail", False, feedback
-        
-        if critical_high_issues:
-            self._log(f"Found {len(critical_high_issues)} critical/high severity issues")
-            suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
-            feedback = self._generate_feedback(search_output, scrutiny, confidence_meets_threshold, suggested_score)
-            return "needs_refinement", False, feedback
-        
-        if not confidence_meets_threshold:
-            self._log("Confidence below threshold")
-            suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
-            feedback = self._generate_feedback(search_output, scrutiny, confidence_meets_threshold, suggested_score)
-            return "needs_refinement", False, feedback
-        
-        if scrutiny.issues:
-            if iteration < 2:
-                self._log(f"Found {len(scrutiny.issues)} issues, requesting refinement")
+
+        # -----------------------------
+        # First validation pass (iteration == 0)
+        # -----------------------------
+        if iteration == 0:
+            # Any critical/high issues → ask for refinement
+            if critical_high_issues:
+                self._log(f"Found {len(critical_high_issues)} critical/high issues (iter 0); needs refinement.")
                 suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
-                feedback = self._generate_feedback(search_output, scrutiny, confidence_meets_threshold, suggested_score)
+                feedback = self._generate_feedback(
+                    search_output,
+                    scrutiny,
+                    confidence_meets_threshold,
+                    suggested_score,
+                )
                 return "needs_refinement", False, feedback
-            else:
-                self._log(f"Accepting with {len(scrutiny.issues)} minor issues after {iteration} iterations")
-                return "pass", True, None
-        
-        self._log("All validation checks passed")
+
+            # Confidence below threshold → needs refinement
+            if not confidence_meets_threshold:
+                self._log("Confidence below threshold on first validation; needs refinement.")
+                suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
+                feedback = self._generate_feedback(
+                    search_output,
+                    scrutiny,
+                    confidence_meets_threshold,
+                    suggested_score,
+                )
+                return "needs_refinement", False, feedback
+
+            # No critical/high issues and confidence ok, but there are still issues
+            if issues:
+                self._log(f"Found {len(issues)} non-critical issues on first validation; needs refinement.")
+                suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
+                feedback = self._generate_feedback(
+                    search_output,
+                    scrutiny,
+                    confidence_meets_threshold,
+                    suggested_score,
+                )
+                return "needs_refinement", False, feedback
+
+            # Completely clean: pass immediately
+            self._log("All validation checks passed on first iteration; passing.")
+            return "pass", True, None
+
+        # -----------------------------
+        # Second validation pass (iteration >= 1)
+        # -----------------------------
+        # At this point we do NOT want to keep asking for refinement.
+        # Either we pass with remaining minor issues or we fail.
+
+        # Critical/high issues remaining after refinement → fail
+        if critical_high_issues:
+            self._log(
+                f"Critical/high issues remain after refinement ({len(critical_high_issues)}); failing."
+            )
+            suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
+            feedback = self._generate_feedback(
+                search_output,
+                scrutiny,
+                confidence_meets_threshold,
+                suggested_score,
+            )
+            return "fail", False, feedback
+
+        # Confidence still below threshold after refinement → fail
+        if not confidence_meets_threshold:
+            self._log("Confidence still below threshold after refinement; failing.")
+            suggested_score = scrutiny.confidence_assessment.get("suggested_score", 0.5)
+            feedback = self._generate_feedback(
+                search_output,
+                scrutiny,
+                confidence_meets_threshold,
+                suggested_score,
+            )
+            return "fail", False, feedback
+
+        # Only medium/low issues remain, confidence ok → accept
+        if issues:
+            self._log(
+                f"Accepting with {len(issues)} non-critical issues after refinement; passing."
+            )
+            return "pass", True, None
+
+        # No issues at all and confidence ok → pass
+        self._log("All validation checks passed after refinement; passing.")
         return "pass", True, None
+
     
     def validate_record(
         self,

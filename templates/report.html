@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}MDM Enrichment – Report {{ run_id }}{% endblock %}
+
+{% block content %}
+<section class="page-section">
+  <header class="page-header">
+    <div class="page-header-main">
+      <h1 class="page-title">Run report</h1>
+      <p class="page-subtitle">
+        Combined enrichment and validation results for run
+        <code>{{ run_id }}</code>.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <a
+        href="{{ url_for('download_report', run_id=run_id) }}"
+        class="btn btn-secondary"
+        >Download CSV</a
+      >
+      <a href="{{ url_for('index') }}" class="btn btn-ghost">New upload</a>
+    </div>
+  </header>
+
+  {% if summary %}
+  <section class="card summary-card">
+    <h2 class="section-title">Validation summary</h2>
+    <div class="summary-grid">
+      <div class="summary-pill">
+        <span class="summary-label">Total</span>
+        <span class="summary-value">{{ summary.total }}</span>
+      </div>
+      <div class="summary-pill summary-pill-pass">
+        <span class="summary-label">Pass</span>
+        <span class="summary-value">{{ summary.passes }}</span>
+      </div>
+      <div class="summary-pill summary-pill-refine">
+        <span class="summary-label">Needs refinement</span>
+        <span class="summary-value">{{ summary.needs_refinement }}</span>
+      </div>
+      <div class="summary-pill summary-pill-fail">
+        <span class="summary-label">Fail</span>
+        <span class="summary-value">{{ summary.fails }}</span>
+      </div>
+    </div>
+
+    {% if report %}
+    <div class="validation-meta">
+      <div class="meta-item">
+        <span class="meta-label">Overall decision</span>
+        <span class="meta-value">
+          {{ report.overall_decision or "N/A" }}
+        </span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Validation loops</span>
+        <span class="meta-value">
+          {{ report.validation_loop or 0 }}
+        </span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Records needing refinement</span>
+        <span class="meta-value">
+          {% set pending = report.records_needing_refinement or [] %}
+          {{ pending|length }}
+          {% if pending and pending|length < 15 %}
+          ({{ pending|join(", ") }})
+          {% elif pending %}
+          (see JSON)
+          {% endif %}
+        </span>
+      </div>
+    </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% if report and report.results %}
+  <section class="card">
+    <div class="card-header-row">
+      <h2 class="section-title">Per-record validation details</h2>
+      <p class="muted">
+        These rows are deserialized from
+        <code>validation_results.json</code>.
+      </p>
+    </div>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Record ID</th>
+            <th>Status</th>
+            <th>Confidence</th>
+            <th>Threshold</th>
+            <th>Meets threshold</th>
+            <th>Provenance score</th>
+            <th>Iterations</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record_id, r in report.results.items() %}
+          <tr>
+            <td>{{ record_id }}</td>
+            <td>
+              {% set st = r.status or "unknown" %}
+              <span class="status-badge status-{{ st }}">
+                {{ st }}
+              </span>
+            </td>
+            <td>
+              {% if r.actual_confidence is not none %}
+              {{ "%.3f"|format(r.actual_confidence) }}
+              {% else %}
+              –
+              {% endif %}
+            </td>
+            <td>
+              {% if r.threshold_used is not none %}
+              {{ "%.1f"|format(r.threshold_used) }}
+              {% else %}
+              –
+              {% endif %}
+            </td>
+            <td>
+              {% if r.confidence_meets_threshold %}
+              Yes
+              {% else %}
+              No
+              {% endif %}
+            </td>
+            <td>
+              {% if r.provenance_quality_score is not none %}
+              {{ "%.2f"|format(r.provenance_quality_score) }}
+              {% else %}
+              –
+              {% endif %}
+            </td>
+            <td>
+              {% if r.iteration_count is not none %}
+              {{ r.iteration_count }}
+              {% else %}
+              –
+              {% endif %}
+            </td>
+            <td class="cell-notes">
+              {{ r.validation_notes or "" }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="card">
+    <div class="card-header-row">
+      <div>
+        <h2 class="section-title">Merged MDM report</h2>
+        <p class="muted">
+          This table corresponds to the CSV download and includes input,
+          enrichment, and validation columns.
+        </p>
+      </div>
+      <div class="table-controls">
+        <input
+          type="search"
+          id="table-filter"
+          class="field-input field-input-compact"
+          placeholder="Filter rows…"
+        />
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="data-table" id="results-table">
+        <thead>
+          <tr>
+            {% for col in columns %}
+            <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+          <tr data-status="{{ row.get('VALIDATION_STATUS', '') }}">
+            {% for col in columns %}
+            <td>{{ row.get(col, "") }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+
+<script>
+  (function () {
+    const input = document.getElementById("table-filter");
+    const table = document.getElementById("results-table");
+    if (!input || !table || !table.tBodies.length) return;
+
+    const rows = Array.from(table.tBodies[0].rows || []);
+
+    input.addEventListener("input", function () {
+      const term = this.value.trim().toLowerCase();
+      if (!term) {
+        rows.forEach((row) => {
+          row.style.display = "";
+        });
+        return;
+      }
+
+      rows.forEach((row) => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.indexOf(term) !== -1 ? "" : "none";
+      });
+    });
+  })();
+</script>
+{% endblock %}

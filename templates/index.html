@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}MDM Enrichment – Upload{% endblock %}
+
+{% block content %}
+<section class="page-section">
+  <div class="layout-grid">
+    <section class="card card-main">
+      <h1 class="page-title">MDM Enrichment &amp; Validation</h1>
+      <p class="page-subtitle">
+        Upload a CSV or Excel file of customer records and run the full
+        LLM-powered enrichment and validation pipeline.
+      </p>
+
+      <form
+        class="upload-form"
+        method="post"
+        action="{{ url_for('upload') }}"
+        enctype="multipart/form-data"
+      >
+        <div class="form-row">
+          <label for="file" class="field-label">Input file (CSV/XLSX)</label>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            required
+            accept=".csv,.xlsx,.xls"
+            class="field-input"
+          />
+          <p class="help-text">
+            The header row should match the expected MDM schema
+            (<code>name</code>, <code>address</code>, <code>city</code>,
+            <code>state</code>, <code>country</code>,
+            <code>postal_code</code>).
+          </p>
+        </div>
+
+        <div class="form-row form-row-inline">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              name="use_dnb"
+              id="use_dnb"
+              class="checkbox-input"
+            />
+            <span>Use DNB / PRIMARY_* fields when available</span>
+          </label>
+        </div>
+
+        <div class="form-row form-row-inline">
+          <div class="field-group">
+            <label for="max_validations" class="field-label">
+              Max validation iterations (optional)
+            </label>
+            <input
+              type="number"
+              name="max_validations"
+              id="max_validations"
+              min="1"
+              step="1"
+              class="field-input"
+              placeholder="Use pipeline default"
+            />
+            <p class="help-text">
+              Overrides the default maximum number of validation/refinement
+              loops for this run.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            Run pipeline
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="card card-secondary">
+      <h2 class="section-title">What this app does</h2>
+      <ol class="steps-list">
+        <li>Ingests your raw MDM records from CSV or Excel.</li>
+        <li>Builds search queries and call external data tools.</li>
+        <li>Enriches each record using LLM-assisted reasoning.</li>
+        <li>
+          Runs a validation loop to check confidence, provenance, and data
+          quality.
+        </li>
+        <li>
+          Writes a merged CSV plus structured
+          <code>validation_results.json</code> per run.
+        </li>
+        <li>
+          Lets you explore the results and download the final report from the
+          browser.
+        </li>
+      </ol>
+      <p class="muted">
+        Each upload is stored in a unique
+        <code>runs/&lt;run_id&gt;</code> folder alongside the generated
+        outputs.
+      </p>
+    </aside>
+  </div>
+</section>
+{% endblock %}

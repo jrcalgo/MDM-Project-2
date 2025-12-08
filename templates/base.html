@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}MDM Enrichment &amp; Validation{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="container header-inner">
+          <div class="app-brand">
+            <div class="brand-logo-circle"></div>
+            <div class="brand-text">
+              <span class="brand-title">MDM Enrichment</span>
+              <span class="brand-subtitle">Search · Validate · Report</span>
+            </div>
+          </div>
+          <nav class="app-nav">
+            <a href="{{ url_for('index') }}" class="nav-link">New run</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <div class="container">
+          {% block content %}{% endblock %}
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        <div class="container footer-inner">
+          <span class="footer-text">
+            MDM Enrichment &amp; Validation · LLM-powered data quality pipeline
+          </span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
