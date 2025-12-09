@@ -1,0 +1,81 @@
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+searchFunction.cpython-313.pyc
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# --- Virtual environments ---
+venv/
+.env/
+.env.*/
+.RAGenv/
+.ragenv/
+.ragenv/
+.rag_env/
+RAGenv/
+
+# --- Jupyter / notebooks ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Local config / secrets ---
+.env.local
+.env.development
+.env.production
+.env.test
+*.secret
+*.key
+*.pem
+*.crt
+*.pub
+
+# If you keep your OpenAI / API keys in a file:
+openai_api_key.txt
+secrets.json
+
+# --- Data & outputs ---
+# Raw input/output data that can be regenerated or is sensitive
+# data/*.json
+# data/*.ndjson
+# data/*.parquet
+# data/*.xlsx
+# data/*.xls
+# data/*.csv
+
+# If you want to keep *input* CSVs in git, comment the line above
+# and explicitly ignore only generated artifacts:
+# data/input_MDM.json
+# data/rawSearchResults.json
+# data/processedSearchResults.json
+# data/comparison_input_output.csv
+
+# --- Debug artifacts ---
+debug_raw/
+logs/
+*.log
+
+# --- Cache for tooling ---
+.mypy_cache/
+.pytest_cache/
+.cache/
+__snapshots__/
+
+# --- LangChain / LangGraph artifacts (if any) ---
+.lc_cache/
+.lg_cache/

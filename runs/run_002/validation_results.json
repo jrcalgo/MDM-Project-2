@@ -1,0 +1,1148 @@
+{
+  "overall_decision": "validation_done",
+  "validation_loop": 0,
+  "records_needing_refinement": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "previously_failed_indices": [
+    0,
+    1,
+    2,
+    4,
+    10,
+    11
+  ],
+  "decisions": [
+    "fail",
+    "fail",
+    "fail",
+    "needs_refinement",
+    "fail",
+    "needs_refinement",
+    "needs_refinement",
+    "needs_refinement",
+    "needs_refinement",
+    "needs_refinement",
+    "fail",
+    "fail",
+    "needs_refinement",
+    "needs_refinement",
+    "needs_refinement"
+  ],
+  "results": {
+    "Beijing Zing Found Network Co.ltd": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: The tools summary does not contain any information related to 'Beijing Zing Found Network Co.ltd'.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 0
+    },
+    "Engineered Services (australia) Pty. Limited": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: No results directly reference 'Engineered Services (australia) Pty. Limited' or provide sufficient information to confirm a match.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 0
+    },
+    "No.6 Mechanical Design & Research Institute": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: No direct matches or relevant information found linking the input company to the tool results.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 0
+    },
+    "Bas Engineering Limited": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": true,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.85,
+      "issues_found": [
+        {
+          "severity": "medium",
+          "issue_type": "geographic_inconsistency",
+          "field": "city",
+          "description": "Input city is 'HONG KONG' (general), enriched city is 'Chai Wan' (a district within Hong Kong). While more specific, the change is not explicitly supported by direct evidence in the provided metadata, which only states 'Chai Wan, Hong Kong' generally. This could cause confusion without clear provenance.",
+          "evidence": "Search metadata notes mention 'Chai Wan, Hong Kong' but no direct source link or address line explicitly states 'Room 708' or 'Chai Wan' as city."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "address_discrepancy",
+          "field": "address",
+          "description": "Input address floor is '6/F.', enriched address is 'Room 708' (7th floor). This is a significant discrepancy in floor number that is not explained or supported by the evidence. The enriched address is more specific but lacks clear provenance from the search results.",
+          "evidence": "No direct evidence in search metadata or websites confirming 'Room 708' vs '6/F.'"
+        },
+        {
+          "severity": "medium",
+          "issue_type": "country_code_mismatch",
+          "field": "country",
+          "description": "Input country code is 'CN' (China), enriched country code is 'HK' (Hong Kong). Given Hong Kong's special administrative status, 'HK' is more appropriate, but this change should be explicitly justified by evidence. The search metadata confirms location in Hong Kong, so this is acceptable but should be noted.",
+          "evidence": "Search metadata and websites confirm location in Hong Kong."
+        },
+        {
+          "severity": "low",
+          "issue_type": "postal_code_missing",
+          "field": "postal_code",
+          "description": "Postal code is missing in both input and enriched data. Given the detailed address and multiple sources, postal code might be available from OSM or other tools but was not extracted.",
+          "evidence": "No postal code provided despite detailed address and multiple sources."
+        }
+      ],
+      "recommendations": [
+        "Explicitly confirm and document the floor/room number discrepancy with direct source citations before updating address details.",
+        "Clarify city field usage: either keep 'Hong Kong' as city or provide strong evidence for 'Chai Wan' as city/district to avoid confusion.",
+        "Extract postal code if available from OSM or other geographic data sources to complete address.",
+        "Use consistent country code 'HK' for Hong Kong with clear justification in provenance.",
+        "Include latitude and longitude if available from OSM or other geocoding tools to improve geographic precision.",
+        "Ensure all address components from search results and websites are fully extracted and cross-validated.",
+        "Re-extract fields from tool results: postal_code, lat, lon"
+      ],
+      "validation_notes": "Found 4 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.19999999999999996,
+        "target_threshold": 0.65,
+        "issues": [
+          {
+            "severity": "medium",
+            "issue_type": "geographic_inconsistency",
+            "field": "city",
+            "description": "Input city is 'HONG KONG' (general), enriched city is 'Chai Wan' (a district within Hong Kong). While more specific, the change is not explicitly supported by direct evidence in the provided metadata, which only states 'Chai Wan, Hong Kong' generally. This could cause confusion without clear provenance.",
+            "evidence": "Search metadata notes mention 'Chai Wan, Hong Kong' but no direct source link or address line explicitly states 'Room 708' or 'Chai Wan' as city."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "address_discrepancy",
+            "field": "address",
+            "description": "Input address floor is '6/F.', enriched address is 'Room 708' (7th floor). This is a significant discrepancy in floor number that is not explained or supported by the evidence. The enriched address is more specific but lacks clear provenance from the search results.",
+            "evidence": "No direct evidence in search metadata or websites confirming 'Room 708' vs '6/F.'"
+          },
+          {
+            "severity": "medium",
+            "issue_type": "country_code_mismatch",
+            "field": "country",
+            "description": "Input country code is 'CN' (China), enriched country code is 'HK' (Hong Kong). Given Hong Kong's special administrative status, 'HK' is more appropriate, but this change should be explicitly justified by evidence. The search metadata confirms location in Hong Kong, so this is acceptable but should be noted.",
+            "evidence": "Search metadata and websites confirm location in Hong Kong."
+          },
+          {
+            "severity": "low",
+            "issue_type": "postal_code_missing",
+            "field": "postal_code",
+            "description": "Postal code is missing in both input and enriched data. Given the detailed address and multiple sources, postal code might be available from OSM or other tools but was not extracted.",
+            "evidence": "No postal code provided despite detailed address and multiple sources."
+          }
+        ],
+        "recommendations": [
+          "Explicitly confirm and document the floor/room number discrepancy with direct source citations before updating address details.",
+          "Clarify city field usage: either keep 'Hong Kong' as city or provide strong evidence for 'Chai Wan' as city/district to avoid confusion.",
+          "Extract postal code if available from OSM or other geographic data sources to complete address.",
+          "Use consistent country code 'HK' for Hong Kong with clear justification in provenance.",
+          "Include latitude and longitude if available from OSM or other geocoding tools to improve geographic precision.",
+          "Ensure all address components from search results and websites are fully extracted and cross-validated."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: postal_code, lat, lon"
+        ]
+      },
+      "provenance_quality_score": 0.65,
+      "iteration_count": 0
+    },
+    "北京华力豪顺科技公司": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: The tools do not provide specific information about the organization '北京华力豪顺科技公司'.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 0
+    },
+    "施耐德电气中国投资有限公司": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": true,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.75,
+      "issues_found": [
+        {
+          "severity": "high",
+          "issue_type": "name_mismatch",
+          "field": "canonical_name",
+          "description": "The enriched canonical name '施耐德电气' is a shortened form and does not closely match the input '施耐德电气中国投资有限公司', which likely refers to a specific legal entity or subsidiary. This raises questions about the correctness of the match.",
+          "evidence": "Input name includes '中国投资有限公司' indicating a specific entity; enriched name is generic company brand name."
+        },
+        {
+          "severity": "high",
+          "issue_type": "address_mismatch",
+          "field": "address",
+          "description": "The input address refers to a bank location '中国工商银行北京经济技术开发区, 支行营业室' which is unrelated to the enriched address '北京市朝阳区望京东路6号施耐德电气大厦'. This suggests a possible input error or mismatch in source data.",
+          "evidence": "Input address is a bank branch; enriched address is a corporate building for Schneider Electric."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "incomplete_geographic_data",
+          "field": "state",
+          "description": "The 'state' field is empty in the enriched record, while the input had 'CHINA' which is a country, not a state. The enriched record should clarify administrative divisions (e.g., province or municipality) for Beijing.",
+          "evidence": "Beijing is a municipality-level city; state field left blank without explanation."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "confidence_score_questionable",
+          "field": "confidence",
+          "description": "The confidence score of 0.75 is borderline high for a non-US entity given the name and address mismatches and lack of websites or IDs. The evidence count is 5 but provenance details are vague and no direct URLs or official IDs are provided.",
+          "evidence": "Notes mention multiple sources but no websites or IDs extracted; canonical name is generic; address differs significantly."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "missing_lat_lon",
+          "field": "lat, lon",
+          "description": "Latitude and longitude are missing despite the enriched address being a specific building in Beijing, which should be geocodable via OSM or other tools.",
+          "evidence": "Enriched address is precise; OSM likely has coordinates for '北京市朝阳区望京东路6号施耐德电气大厦'."
+        }
+      ],
+      "recommendations": [
+        "Verify the input address correctness; it appears to be a bank branch unrelated to the company name.",
+        "Attempt to locate official company registration data or authoritative IDs to confirm the exact legal entity matching '施耐德电气中国投资有限公司'.",
+        "Extract and include website URLs or official identifiers from search results to strengthen provenance.",
+        "Add latitude and longitude coordinates for the enriched address using OSM or other geocoding tools.",
+        "Clarify administrative divisions in the 'state' field for Beijing to improve geographic completeness.",
+        "Consider maintaining the full legal name if confirmed, rather than shortening to the brand name, to avoid ambiguity.",
+        "Re-extract fields from tool results: lat, lon, state",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Found 5 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.19999999999999996,
+        "target_threshold": 0.55,
+        "issues": [
+          {
+            "severity": "high",
+            "issue_type": "name_mismatch",
+            "field": "canonical_name",
+            "description": "The enriched canonical name '施耐德电气' is a shortened form and does not closely match the input '施耐德电气中国投资有限公司', which likely refers to a specific legal entity or subsidiary. This raises questions about the correctness of the match.",
+            "evidence": "Input name includes '中国投资有限公司' indicating a specific entity; enriched name is generic company brand name."
+          },
+          {
+            "severity": "high",
+            "issue_type": "address_mismatch",
+            "field": "address",
+            "description": "The input address refers to a bank location '中国工商银行北京经济技术开发区, 支行营业室' which is unrelated to the enriched address '北京市朝阳区望京东路6号施耐德电气大厦'. This suggests a possible input error or mismatch in source data.",
+            "evidence": "Input address is a bank branch; enriched address is a corporate building for Schneider Electric."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "incomplete_geographic_data",
+            "field": "state",
+            "description": "The 'state' field is empty in the enriched record, while the input had 'CHINA' which is a country, not a state. The enriched record should clarify administrative divisions (e.g., province or municipality) for Beijing.",
+            "evidence": "Beijing is a municipality-level city; state field left blank without explanation."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "confidence_score_questionable",
+            "field": "confidence",
+            "description": "The confidence score of 0.75 is borderline high for a non-US entity given the name and address mismatches and lack of websites or IDs. The evidence count is 5 but provenance details are vague and no direct URLs or official IDs are provided.",
+            "evidence": "Notes mention multiple sources but no websites or IDs extracted; canonical name is generic; address differs significantly."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "missing_lat_lon",
+            "field": "lat, lon",
+            "description": "Latitude and longitude are missing despite the enriched address being a specific building in Beijing, which should be geocodable via OSM or other tools.",
+            "evidence": "Enriched address is precise; OSM likely has coordinates for '北京市朝阳区望京东路6号施耐德电气大厦'."
+          }
+        ],
+        "recommendations": [
+          "Verify the input address correctness; it appears to be a bank branch unrelated to the company name.",
+          "Attempt to locate official company registration data or authoritative IDs to confirm the exact legal entity matching '施耐德电气中国投资有限公司'.",
+          "Extract and include website URLs or official identifiers from search results to strengthen provenance.",
+          "Add latitude and longitude coordinates for the enriched address using OSM or other geocoding tools.",
+          "Clarify administrative divisions in the 'state' field for Beijing to improve geographic completeness.",
+          "Consider maintaining the full legal name if confirmed, rather than shortening to the brand name, to avoid ambiguity."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: lat, lon, state",
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.6,
+      "iteration_count": 0
+    },
+    "中国金山联合贸易有限责任公司": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": true,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.75,
+      "issues_found": [
+        {
+          "severity": "high",
+          "issue_type": "address_mismatch",
+          "field": "address",
+          "description": "The input address '中行金山支行石化分理处, .' is a bank branch location, which does not match the enriched address '金山区金一东路1号金山宾馆南8楼' that appears to be a commercial or office building. This discrepancy raises concerns about the correctness of the enriched address.",
+          "evidence": "Input address references a bank branch; enriched address is a hotel building in Jinshan District."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "incomplete_geographic_data",
+          "field": "state, postal_code, lat, lon",
+          "description": "The enriched record lacks state and postal code information, and latitude/longitude are null. Given that OSM and other tools typically provide postal codes and coordinates for Shanghai addresses, these fields appear to be missing despite likely availability.",
+          "evidence": "Enriched record has empty state and postal_code fields; lat/lon are null."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "confidence_score_questionable",
+          "field": "confidence",
+          "description": "The confidence score of 0.75 is borderline high for a non-US entity but is not fully justified given the address mismatch and missing geographic details. The evidence count is only 4 and no websites or IDs were found, limiting provenance strength.",
+          "evidence": "4 evidence count with no websites or IDs; address discrepancy noted."
+        },
+        {
+          "severity": "low",
+          "issue_type": "inconsistent_field_format",
+          "field": "city, country",
+          "description": "The input uses English names for city and country ('SHANGHAI', 'CN'), while the enriched record uses Chinese ('上海', '中国'). While this is not necessarily incorrect, it should be noted and ideally normalized or cross-validated.",
+          "evidence": "Input vs enriched city and country names differ in language/script."
+        }
+      ],
+      "recommendations": [
+        "Verify the correct official address of the company to resolve the discrepancy between input and enriched addresses.",
+        "Extract and include postal code and geographic coordinates from OSM or other geocoding tools to improve completeness.",
+        "Attempt to find authoritative websites or business registration IDs to strengthen provenance.",
+        "Normalize city and country names to a consistent language/script or provide both versions with clear provenance.",
+        "Increase evidence count by expanding search queries to include business registries and local directories.",
+        "Re-extract fields from tool results: state, postal_code, lat, lon",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Found 4 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.15000000000000002,
+        "target_threshold": 0.6,
+        "issues": [
+          {
+            "severity": "high",
+            "issue_type": "address_mismatch",
+            "field": "address",
+            "description": "The input address '中行金山支行石化分理处, .' is a bank branch location, which does not match the enriched address '金山区金一东路1号金山宾馆南8楼' that appears to be a commercial or office building. This discrepancy raises concerns about the correctness of the enriched address.",
+            "evidence": "Input address references a bank branch; enriched address is a hotel building in Jinshan District."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "incomplete_geographic_data",
+            "field": "state, postal_code, lat, lon",
+            "description": "The enriched record lacks state and postal code information, and latitude/longitude are null. Given that OSM and other tools typically provide postal codes and coordinates for Shanghai addresses, these fields appear to be missing despite likely availability.",
+            "evidence": "Enriched record has empty state and postal_code fields; lat/lon are null."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "confidence_score_questionable",
+            "field": "confidence",
+            "description": "The confidence score of 0.75 is borderline high for a non-US entity but is not fully justified given the address mismatch and missing geographic details. The evidence count is only 4 and no websites or IDs were found, limiting provenance strength.",
+            "evidence": "4 evidence count with no websites or IDs; address discrepancy noted."
+          },
+          {
+            "severity": "low",
+            "issue_type": "inconsistent_field_format",
+            "field": "city, country",
+            "description": "The input uses English names for city and country ('SHANGHAI', 'CN'), while the enriched record uses Chinese ('上海', '中国'). While this is not necessarily incorrect, it should be noted and ideally normalized or cross-validated.",
+            "evidence": "Input vs enriched city and country names differ in language/script."
+          }
+        ],
+        "recommendations": [
+          "Verify the correct official address of the company to resolve the discrepancy between input and enriched addresses.",
+          "Extract and include postal code and geographic coordinates from OSM or other geocoding tools to improve completeness.",
+          "Attempt to find authoritative websites or business registration IDs to strengthen provenance.",
+          "Normalize city and country names to a consistent language/script or provide both versions with clear provenance.",
+          "Increase evidence count by expanding search queries to include business registries and local directories."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: state, postal_code, lat, lon",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.6,
+      "iteration_count": 0
+    },
+    "能殷自动化贸易(深圳)有限公司": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.65,
+      "issues_found": [
+        {
+          "severity": "high",
+          "issue_type": "incomplete_address",
+          "field": "address",
+          "description": "The input address is nonsensical ('深圳市招商银行总行营业部, .') and the enriched record has an empty address field despite OSM and other sources likely having more precise location data for this company in Shenzhen.",
+          "evidence": "Input address is invalid; enriched address is empty; OSM and web sources likely contain better address data."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "name_mismatch",
+          "field": "name",
+          "description": "The canonical name dropped the '(深圳)' qualifier from the input name. This may be acceptable if the company is known without the city qualifier, but no explicit provenance or explanation is provided to justify this change.",
+          "evidence": "Input name: '能殷自动化贸易(深圳)有限公司'; enriched name: '能殷自动化贸易有限公司'; no provenance explaining the difference."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "incomplete_geographic_fields",
+          "field": "state",
+          "description": "The input 'state' field contains 'CHINA', which is a country name, not a state/province. The enriched record leaves this blank. The province-level subdivision (e.g., Guangdong) is missing, which is important for geographic completeness.",
+          "evidence": "Input state: 'CHINA' (incorrect usage); enriched state: empty; no province-level data extracted."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "postal_code_missing",
+          "field": "postal_code",
+          "description": "Postal code is missing in both input and enriched data. Given the city is Shenzhen, postal code data should be available from OSM or other sources but was not extracted.",
+          "evidence": "Input postal_code: '.'; enriched postal_code: empty; OSM likely has postal code data."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "confidence_score_inflated",
+          "field": "confidence",
+          "description": "The confidence score of 0.65 is somewhat high given the incomplete address, missing geographic subdivisions, and lack of explicit provenance for the canonical name change. Evidence count is moderate but does not support a higher confidence.",
+          "evidence": "Confidence 0.65 with 6 evidence items but critical fields missing or incomplete."
+        }
+      ],
+      "recommendations": [
+        "Extract and populate a complete, valid address from OSM or other sources, including street, district, and postal code.",
+        "Clarify and justify the canonical name change, or retain the original name if no strong evidence supports the change.",
+        "Correct the 'state' field to reflect the correct province (e.g., Guangdong) rather than the country name.",
+        "Include latitude and longitude coordinates if available from OSM or other geospatial sources.",
+        "Increase provenance detail by linking each populated field to specific source URLs or data points.",
+        "Review and refine search queries to better capture full address and geographic subdivisions.",
+        "Re-extract fields from tool results: address, state, postal_code, lat, lon",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.5 confidence threshold",
+        "Try both original and romanized company names",
+        "Focus search on missing critical fields: address"
+      ],
+      "validation_notes": "Confidence 0.650 below threshold 0.7 | Found 5 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.2,
+        "target_threshold": 0.45,
+        "issues": [
+          {
+            "severity": "high",
+            "issue_type": "incomplete_address",
+            "field": "address",
+            "description": "The input address is nonsensical ('深圳市招商银行总行营业部, .') and the enriched record has an empty address field despite OSM and other sources likely having more precise location data for this company in Shenzhen.",
+            "evidence": "Input address is invalid; enriched address is empty; OSM and web sources likely contain better address data."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "name_mismatch",
+            "field": "name",
+            "description": "The canonical name dropped the '(深圳)' qualifier from the input name. This may be acceptable if the company is known without the city qualifier, but no explicit provenance or explanation is provided to justify this change.",
+            "evidence": "Input name: '能殷自动化贸易(深圳)有限公司'; enriched name: '能殷自动化贸易有限公司'; no provenance explaining the difference."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "incomplete_geographic_fields",
+            "field": "state",
+            "description": "The input 'state' field contains 'CHINA', which is a country name, not a state/province. The enriched record leaves this blank. The province-level subdivision (e.g., Guangdong) is missing, which is important for geographic completeness.",
+            "evidence": "Input state: 'CHINA' (incorrect usage); enriched state: empty; no province-level data extracted."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "postal_code_missing",
+            "field": "postal_code",
+            "description": "Postal code is missing in both input and enriched data. Given the city is Shenzhen, postal code data should be available from OSM or other sources but was not extracted.",
+            "evidence": "Input postal_code: '.'; enriched postal_code: empty; OSM likely has postal code data."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "confidence_score_inflated",
+            "field": "confidence",
+            "description": "The confidence score of 0.65 is somewhat high given the incomplete address, missing geographic subdivisions, and lack of explicit provenance for the canonical name change. Evidence count is moderate but does not support a higher confidence.",
+            "evidence": "Confidence 0.65 with 6 evidence items but critical fields missing or incomplete."
+          }
+        ],
+        "recommendations": [
+          "Extract and populate a complete, valid address from OSM or other sources, including street, district, and postal code.",
+          "Clarify and justify the canonical name change, or retain the original name if no strong evidence supports the change.",
+          "Correct the 'state' field to reflect the correct province (e.g., Guangdong) rather than the country name.",
+          "Include latitude and longitude coordinates if available from OSM or other geospatial sources.",
+          "Increase provenance detail by linking each populated field to specific source URLs or data points.",
+          "Review and refine search queries to better capture full address and geographic subdivisions."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: address, state, postal_code, lat, lon",
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.5 confidence threshold",
+          "Try both original and romanized company names",
+          "Focus search on missing critical fields: address"
+        ]
+      },
+      "provenance_quality_score": 0.4,
+      "iteration_count": 0
+    },
+    "天津市开发区泰达大厦房地产开发有限公司泰达俱乐部": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": true,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.75,
+      "issues_found": [
+        {
+          "severity": "high",
+          "issue_type": "name_mismatch",
+          "field": "name",
+          "description": "The enriched canonical name '天津开发区泰达大厦房地产开发有限公司' omits the suffix '泰达俱乐部' present in the input name, which may indicate a different entity or a partial match.",
+          "evidence": "Input name includes '泰达俱乐部' while enriched name does not; no explicit provenance clarifying this difference."
+        },
+        {
+          "severity": "high",
+          "issue_type": "address_mismatch",
+          "field": "address",
+          "description": "The input address '天津商业银行协通支行, .' is a bank branch, which is unrelated to the enriched address '天津市河西区解放南路256号'. This suggests a possible mismatch or confusion in source data.",
+          "evidence": "Input address references a bank branch; enriched address is a street address in Hexi District, Tianjin, no clear link established."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "incomplete_geographic_data",
+          "field": "state, postal_code, lat, lon",
+          "description": "State and postal code fields are empty in the enriched record despite Tianjin being a municipality with known postal codes. Latitude and longitude are missing though likely available from OSM or other sources.",
+          "evidence": "Enriched record has empty state and postal_code; lat/lon null; OSM and other tools typically provide this data for Tianjin addresses."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "confidence_score_questionable",
+          "field": "confidence",
+          "description": "Confidence score of 0.75 is borderline high for a non-US entity given the weak and inconsistent evidence, especially with name and address mismatches and lack of website or ID data.",
+          "evidence": "Only 4 evidence points cited but no websites or IDs; name and address discrepancies; no lat/lon; confidence possibly inflated."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "provenance_insufficiency",
+          "field": "all",
+          "description": "No specific provenance details or source references are provided for the enriched fields, making it difficult to verify the accuracy of the data.",
+          "evidence": "Search metadata notes 'multiple sources' but no explicit source names or links; websites dropped; no IDs."
+        }
+      ],
+      "recommendations": [
+        "Clarify the relationship between the input name and the enriched canonical name to confirm if they represent the same entity or different ones.",
+        "Verify the input address and enriched address to ensure they refer to the same location or entity; if not, separate records may be needed.",
+        "Extract and include postal code, state (if applicable), and geographic coordinates from OSM or other geocoding tools to improve completeness.",
+        "Include explicit provenance for each enriched field, citing specific sources or tool outputs to strengthen trustworthiness.",
+        "Attempt to recover or verify website URLs or official IDs to enhance entity validation.",
+        "Reassess confidence scoring criteria for non-US entities to better reflect evidence quality and consistency.",
+        "Re-extract fields from tool results: postal_code, state, lat, lon",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Found 5 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.15000000000000002,
+        "target_threshold": 0.6,
+        "issues": [
+          {
+            "severity": "high",
+            "issue_type": "name_mismatch",
+            "field": "name",
+            "description": "The enriched canonical name '天津开发区泰达大厦房地产开发有限公司' omits the suffix '泰达俱乐部' present in the input name, which may indicate a different entity or a partial match.",
+            "evidence": "Input name includes '泰达俱乐部' while enriched name does not; no explicit provenance clarifying this difference."
+          },
+          {
+            "severity": "high",
+            "issue_type": "address_mismatch",
+            "field": "address",
+            "description": "The input address '天津商业银行协通支行, .' is a bank branch, which is unrelated to the enriched address '天津市河西区解放南路256号'. This suggests a possible mismatch or confusion in source data.",
+            "evidence": "Input address references a bank branch; enriched address is a street address in Hexi District, Tianjin, no clear link established."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "incomplete_geographic_data",
+            "field": "state, postal_code, lat, lon",
+            "description": "State and postal code fields are empty in the enriched record despite Tianjin being a municipality with known postal codes. Latitude and longitude are missing though likely available from OSM or other sources.",
+            "evidence": "Enriched record has empty state and postal_code; lat/lon null; OSM and other tools typically provide this data for Tianjin addresses."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "confidence_score_questionable",
+            "field": "confidence",
+            "description": "Confidence score of 0.75 is borderline high for a non-US entity given the weak and inconsistent evidence, especially with name and address mismatches and lack of website or ID data.",
+            "evidence": "Only 4 evidence points cited but no websites or IDs; name and address discrepancies; no lat/lon; confidence possibly inflated."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "provenance_insufficiency",
+            "field": "all",
+            "description": "No specific provenance details or source references are provided for the enriched fields, making it difficult to verify the accuracy of the data.",
+            "evidence": "Search metadata notes 'multiple sources' but no explicit source names or links; websites dropped; no IDs."
+          }
+        ],
+        "recommendations": [
+          "Clarify the relationship between the input name and the enriched canonical name to confirm if they represent the same entity or different ones.",
+          "Verify the input address and enriched address to ensure they refer to the same location or entity; if not, separate records may be needed.",
+          "Extract and include postal code, state (if applicable), and geographic coordinates from OSM or other geocoding tools to improve completeness.",
+          "Include explicit provenance for each enriched field, citing specific sources or tool outputs to strengthen trustworthiness.",
+          "Attempt to recover or verify website URLs or official IDs to enhance entity validation.",
+          "Reassess confidence scoring criteria for non-US entities to better reflect evidence quality and consistency."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: postal_code, state, lat, lon",
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.5,
+      "iteration_count": 0
+    },
+    "Pacific Bridge, Inc.": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": true,
+      "threshold_used": 0.8,
+      "actual_confidence": 0.85,
+      "issues_found": [
+        {
+          "severity": "low",
+          "issue_type": "name_variation",
+          "field": "canonical_name",
+          "description": "The canonical name dropped the comma before 'Inc' compared to input. This is a minor formatting difference but should be noted.",
+          "evidence": "Input name 'Pacific Bridge, Inc.' vs enriched 'Pacific Bridge Inc' from Tavily source."
+        },
+        {
+          "severity": "low",
+          "issue_type": "address_formatting",
+          "field": "address",
+          "description": "Address capitalization changed from 'Nw' to 'NW'. This is a standardization rather than an error.",
+          "evidence": "Input '1155 Connecticut Ave Nw' vs enriched '1155 Connecticut Ave NW' confirmed by OpenStreetMap."
+        },
+        {
+          "severity": "low",
+          "issue_type": "missing_websites",
+          "field": "websites",
+          "description": "No websites were extracted despite public presence and 8 evidence count. The notes mention dropped unverified websites but no alternative website evidence is provided.",
+          "evidence": "Search metadata notes: 'dropped_unverified: websites'; enriched record websites field is empty."
+        }
+      ],
+      "recommendations": [
+        "Attempt to identify and verify any official company website to improve completeness.",
+        "Include explicit provenance references for each field, especially the canonical name and address, to strengthen traceability.",
+        "Confirm if any additional company identifiers (e.g., DUNS, tax IDs) are available from sources to enrich the record.",
+        "Ensure that all available data from OpenStreetMap and Tavily is fully extracted and documented.",
+        "Consider normalizing name formatting rules to handle punctuation consistently."
+      ],
+      "validation_notes": "Found 3 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.85,
+        "issues": [
+          {
+            "severity": "low",
+            "issue_type": "name_variation",
+            "field": "canonical_name",
+            "description": "The canonical name dropped the comma before 'Inc' compared to input. This is a minor formatting difference but should be noted.",
+            "evidence": "Input name 'Pacific Bridge, Inc.' vs enriched 'Pacific Bridge Inc' from Tavily source."
+          },
+          {
+            "severity": "low",
+            "issue_type": "address_formatting",
+            "field": "address",
+            "description": "Address capitalization changed from 'Nw' to 'NW'. This is a standardization rather than an error.",
+            "evidence": "Input '1155 Connecticut Ave Nw' vs enriched '1155 Connecticut Ave NW' confirmed by OpenStreetMap."
+          },
+          {
+            "severity": "low",
+            "issue_type": "missing_websites",
+            "field": "websites",
+            "description": "No websites were extracted despite public presence and 8 evidence count. The notes mention dropped unverified websites but no alternative website evidence is provided.",
+            "evidence": "Search metadata notes: 'dropped_unverified: websites'; enriched record websites field is empty."
+          }
+        ],
+        "recommendations": [
+          "Attempt to identify and verify any official company website to improve completeness.",
+          "Include explicit provenance references for each field, especially the canonical name and address, to strengthen traceability.",
+          "Confirm if any additional company identifiers (e.g., DUNS, tax IDs) are available from sources to enrich the record.",
+          "Ensure that all available data from OpenStreetMap and Tavily is fully extracted and documented.",
+          "Consider normalizing name formatting rules to handle punctuation consistently."
+        ],
+        "suggested_actions": []
+      },
+      "provenance_quality_score": 0.85,
+      "iteration_count": 0
+    },
+    "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: The tools summary does not provide any information about the specific organization 'Shanghai North-power Electromechanical Instrument Complete Set Co Ltd'.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 0
+    },
+    "Dec Prc Limited Beijing Service Station": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: No results from the tools indicate a direct connection to the input company.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 0
+    },
+    "北京纳威尔格质量咨询有限公司": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.65,
+      "issues_found": [
+        {
+          "severity": "high",
+          "issue_type": "name_mismatch",
+          "field": "canonical_name",
+          "description": "The canonical name '纳威尔格（北京）管理咨询有限公司' differs significantly from the input name '北京纳威尔格质量咨询有限公司'. The change in company type wording and omission of '质量' (quality) suggests a possible mismatch or partial match rather than a confirmed canonical name.",
+          "evidence": "Comparison summary shows name changed; no strong provenance linking the two names explicitly."
+        },
+        {
+          "severity": "critical",
+          "issue_type": "missing_address_data",
+          "field": "address, postal_code",
+          "description": "The original address '分行西便门分理处' and postal code '100031' were not found or confirmed in the search results. The enriched record leaves these fields empty despite OSM and other tools likely having more detailed address data for Beijing locations.",
+          "evidence": "Search metadata notes address and postal code were not found; enriched record has empty address and postal_code fields."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "geographic_inconsistency",
+          "field": "city",
+          "description": "Input city '交行北京市' is unusual and likely incorrect or incomplete. Enriched city is '北京市', which is more standard. However, no clear provenance explains the correction or confirms the intended city name.",
+          "evidence": "Comparison summary shows city changed; no explicit provenance for city correction."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "low_evidence_for_confidence",
+          "field": "confidence_score",
+          "description": "Confidence score of 0.65 is relatively high given the weak evidence: only 4 evidence points, no website presence, incomplete address data, and name mismatch. The score should be lower to reflect uncertainty.",
+          "evidence": "Search metadata shows 4 evidence points but no address or postal code confirmation; enriched record lacks key fields."
+        }
+      ],
+      "recommendations": [
+        "Refine search queries to explicitly include the full company name including '质量' to avoid partial matches.",
+        "Leverage OSM and other geographic databases to extract complete and precise address and postal code data for Beijing locations.",
+        "Validate city field input and correct or clarify ambiguous city names before enrichment.",
+        "Seek additional evidence sources such as official business registries or websites to confirm company details.",
+        "Lower confidence scores when key fields like address and postal code are missing or unconfirmed.",
+        "Re-extract fields from tool results: address, postal_code, lat, lon",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.4 confidence threshold",
+        "Try both original and romanized company names",
+        "Focus search on missing critical fields: address"
+      ],
+      "validation_notes": "Confidence 0.650 below threshold 0.7 | Found 4 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.25,
+        "target_threshold": 0.4,
+        "issues": [
+          {
+            "severity": "high",
+            "issue_type": "name_mismatch",
+            "field": "canonical_name",
+            "description": "The canonical name '纳威尔格（北京）管理咨询有限公司' differs significantly from the input name '北京纳威尔格质量咨询有限公司'. The change in company type wording and omission of '质量' (quality) suggests a possible mismatch or partial match rather than a confirmed canonical name.",
+            "evidence": "Comparison summary shows name changed; no strong provenance linking the two names explicitly."
+          },
+          {
+            "severity": "critical",
+            "issue_type": "missing_address_data",
+            "field": "address, postal_code",
+            "description": "The original address '分行西便门分理处' and postal code '100031' were not found or confirmed in the search results. The enriched record leaves these fields empty despite OSM and other tools likely having more detailed address data for Beijing locations.",
+            "evidence": "Search metadata notes address and postal code were not found; enriched record has empty address and postal_code fields."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "geographic_inconsistency",
+            "field": "city",
+            "description": "Input city '交行北京市' is unusual and likely incorrect or incomplete. Enriched city is '北京市', which is more standard. However, no clear provenance explains the correction or confirms the intended city name.",
+            "evidence": "Comparison summary shows city changed; no explicit provenance for city correction."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "low_evidence_for_confidence",
+            "field": "confidence_score",
+            "description": "Confidence score of 0.65 is relatively high given the weak evidence: only 4 evidence points, no website presence, incomplete address data, and name mismatch. The score should be lower to reflect uncertainty.",
+            "evidence": "Search metadata shows 4 evidence points but no address or postal code confirmation; enriched record lacks key fields."
+          }
+        ],
+        "recommendations": [
+          "Refine search queries to explicitly include the full company name including '质量' to avoid partial matches.",
+          "Leverage OSM and other geographic databases to extract complete and precise address and postal code data for Beijing locations.",
+          "Validate city field input and correct or clarify ambiguous city names before enrichment.",
+          "Seek additional evidence sources such as official business registries or websites to confirm company details.",
+          "Lower confidence scores when key fields like address and postal code are missing or unconfirmed."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: address, postal_code, lat, lon",
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.4 confidence threshold",
+          "Try both original and romanized company names",
+          "Focus search on missing critical fields: address"
+        ]
+      },
+      "provenance_quality_score": 0.3,
+      "iteration_count": 0
+    },
+    "Beria Consultants Ltd": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.55,
+      "issues_found": [
+        {
+          "severity": "high",
+          "issue_type": "name_mismatch",
+          "field": "canonical_name",
+          "description": "The canonical name 'Beria Consultants Limited' differs from input 'Beria Consultants Ltd' without clear evidence that they are the same entity. The suffix change is plausible but not explicitly confirmed by provenance.",
+          "evidence": "Search metadata notes and websites mention 'Beria Consultants Ltd' but no direct source confirms 'Limited' suffix."
+        },
+        {
+          "severity": "critical",
+          "issue_type": "address_mismatch",
+          "field": "address",
+          "description": "The enriched address '148 Electric Road - Rm 3805' is completely different from the input address '2/F CONCORD COMMERCIAL BUILDING, 157 KING'S ROAD'. No provenance or evidence links these two addresses to the same company.",
+          "evidence": "No cross-validation between input and enriched address."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "incomplete_geographic_data",
+          "field": "state, postal_code",
+          "description": "State and postal code fields are missing in enriched data despite being likely available for Hong Kong addresses. The input state is 'HONG KONG' but enriched state is empty. Postal code is missing in both.",
+          "evidence": "Hong Kong is a well-defined region with known postal codes; OSM and other tools likely have this data but it was not extracted."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "low_confidence_score",
+          "field": "confidence",
+          "description": "Confidence score of 0.55 is low but still may be optimistic given the significant discrepancies in address and incomplete geographic data.",
+          "evidence": "Five evidence count is moderate but does not support the conflicting address data or missing fields."
+        }
+      ],
+      "recommendations": [
+        "Verify the canonical name with explicit source references to confirm 'Ltd' vs 'Limited' suffix.",
+        "Cross-check the address from multiple sources to confirm the correct location; reconcile the discrepancy between King's Road and Electric Road addresses.",
+        "Extract and populate state and postal code fields from OSM or other geographic data sources for Hong Kong.",
+        "Include latitude and longitude coordinates to improve geographic validation.",
+        "Increase evidence count by searching additional authoritative databases or business registries in Hong Kong.",
+        "Ensure all available data from tools is fully extracted and cross-validated before enrichment.",
+        "Re-extract fields from tool results: state, postal_code, lat, lon",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.4 confidence threshold"
+      ],
+      "validation_notes": "Confidence 0.550 below threshold 0.7 | Found 4 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.15000000000000002,
+        "target_threshold": 0.4,
+        "issues": [
+          {
+            "severity": "high",
+            "issue_type": "name_mismatch",
+            "field": "canonical_name",
+            "description": "The canonical name 'Beria Consultants Limited' differs from input 'Beria Consultants Ltd' without clear evidence that they are the same entity. The suffix change is plausible but not explicitly confirmed by provenance.",
+            "evidence": "Search metadata notes and websites mention 'Beria Consultants Ltd' but no direct source confirms 'Limited' suffix."
+          },
+          {
+            "severity": "critical",
+            "issue_type": "address_mismatch",
+            "field": "address",
+            "description": "The enriched address '148 Electric Road - Rm 3805' is completely different from the input address '2/F CONCORD COMMERCIAL BUILDING, 157 KING'S ROAD'. No provenance or evidence links these two addresses to the same company.",
+            "evidence": "No cross-validation between input and enriched address."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "incomplete_geographic_data",
+            "field": "state, postal_code",
+            "description": "State and postal code fields are missing in enriched data despite being likely available for Hong Kong addresses. The input state is 'HONG KONG' but enriched state is empty. Postal code is missing in both.",
+            "evidence": "Hong Kong is a well-defined region with known postal codes; OSM and other tools likely have this data but it was not extracted."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "low_confidence_score",
+            "field": "confidence",
+            "description": "Confidence score of 0.55 is low but still may be optimistic given the significant discrepancies in address and incomplete geographic data.",
+            "evidence": "Five evidence count is moderate but does not support the conflicting address data or missing fields."
+          }
+        ],
+        "recommendations": [
+          "Verify the canonical name with explicit source references to confirm 'Ltd' vs 'Limited' suffix.",
+          "Cross-check the address from multiple sources to confirm the correct location; reconcile the discrepancy between King's Road and Electric Road addresses.",
+          "Extract and populate state and postal code fields from OSM or other geographic data sources for Hong Kong.",
+          "Include latitude and longitude coordinates to improve geographic validation.",
+          "Increase evidence count by searching additional authoritative databases or business registries in Hong Kong.",
+          "Ensure all available data from tools is fully extracted and cross-validated before enrichment."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: state, postal_code, lat, lon",
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.4 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.3,
+      "iteration_count": 0
+    },
+    "Growinet Ltd": {
+      "status": "needs_refinement",
+      "confidence_meets_threshold": true,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.75,
+      "issues_found": [
+        {
+          "severity": "medium",
+          "issue_type": "name_mismatch",
+          "field": "canonical_name",
+          "description": "The canonical name 'Growinet Limited' differs from input 'Growinet Ltd' by full word expansion and suffix change. While likely the same entity, no explicit provenance confirms this exact naming convention.",
+          "evidence": "Search metadata notes multiple sources confirm company name but do not specify exact legal name form."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "address_inconsistency",
+          "field": "address",
+          "description": "The enriched address changes suite number from 'SUTE 1900' to 'RM 1902 19/F' and changes city from 'HONG KONG' to 'Wan Chai'. This is plausible as Wan Chai is a district within Hong Kong, but no explicit provenance confirms the suite number correction or floor number addition.",
+          "evidence": "Search metadata confirms Tung Wah Mansion and Hennessy Road but does not specify room or floor details."
+        },
+        {
+          "severity": "medium",
+          "issue_type": "postal_code_missing",
+          "field": "postal_code",
+          "description": "Postal code remains missing despite Hong Kong having postal codes (though limited). OSM or other tools likely could provide postal code or confirm its absence.",
+          "evidence": "No postal code extracted though 6 evidence count suggests some address data available."
+        },
+        {
+          "severity": "low",
+          "issue_type": "country_format_inconsistency",
+          "field": "country",
+          "description": "Country changed from 'CN' to 'Hong Kong (China)'. This is more precise but inconsistent with ISO country code format expected in MDM.",
+          "evidence": "Enriched data uses descriptive country name rather than standard code."
+        }
+      ],
+      "recommendations": [
+        "Explicitly confirm the legal company name variant from authoritative sources such as government business registries.",
+        "Validate suite and floor number details from address-level data sources like OSM or official building registries.",
+        "Attempt to extract or confirm postal code presence or absence from available geographic data sources.",
+        "Standardize country field to ISO 3166-1 alpha-2 code 'HK' for Hong Kong to maintain consistency.",
+        "Cross-validate city/district naming conventions to ensure consistent geographic hierarchy representation.",
+        "Re-extract fields from tool results: postal_code, lat, lon"
+      ],
+      "validation_notes": "Found 4 issues",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": -0.15000000000000002,
+        "target_threshold": 0.6,
+        "issues": [
+          {
+            "severity": "medium",
+            "issue_type": "name_mismatch",
+            "field": "canonical_name",
+            "description": "The canonical name 'Growinet Limited' differs from input 'Growinet Ltd' by full word expansion and suffix change. While likely the same entity, no explicit provenance confirms this exact naming convention.",
+            "evidence": "Search metadata notes multiple sources confirm company name but do not specify exact legal name form."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "address_inconsistency",
+            "field": "address",
+            "description": "The enriched address changes suite number from 'SUTE 1900' to 'RM 1902 19/F' and changes city from 'HONG KONG' to 'Wan Chai'. This is plausible as Wan Chai is a district within Hong Kong, but no explicit provenance confirms the suite number correction or floor number addition.",
+            "evidence": "Search metadata confirms Tung Wah Mansion and Hennessy Road but does not specify room or floor details."
+          },
+          {
+            "severity": "medium",
+            "issue_type": "postal_code_missing",
+            "field": "postal_code",
+            "description": "Postal code remains missing despite Hong Kong having postal codes (though limited). OSM or other tools likely could provide postal code or confirm its absence.",
+            "evidence": "No postal code extracted though 6 evidence count suggests some address data available."
+          },
+          {
+            "severity": "low",
+            "issue_type": "country_format_inconsistency",
+            "field": "country",
+            "description": "Country changed from 'CN' to 'Hong Kong (China)'. This is more precise but inconsistent with ISO country code format expected in MDM.",
+            "evidence": "Enriched data uses descriptive country name rather than standard code."
+          }
+        ],
+        "recommendations": [
+          "Explicitly confirm the legal company name variant from authoritative sources such as government business registries.",
+          "Validate suite and floor number details from address-level data sources like OSM or official building registries.",
+          "Attempt to extract or confirm postal code presence or absence from available geographic data sources.",
+          "Standardize country field to ISO 3166-1 alpha-2 code 'HK' for Hong Kong to maintain consistency.",
+          "Cross-validate city/district naming conventions to ensure consistent geographic hierarchy representation."
+        ],
+        "suggested_actions": [
+          "Re-extract fields from tool results: postal_code, lat, lon"
+        ]
+      },
+      "provenance_quality_score": 0.65,
+      "iteration_count": 0
+    }
+  }
+}
