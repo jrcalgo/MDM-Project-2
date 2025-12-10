@@ -68,7 +68,7 @@ Honeywell's Master Data Management (MDM) system holds around 5.5 million custome
 │   ├── read_input_records.py    # Reads Excel/CSV inputs into MDMData
 │   └── report_builder.py        # Builds merged report rows for UI/CSV
 ├── templates/
-│   ├── base.html                # Shared layout (Gradio-like light theme)
+│   ├── base.html                # Shared layout
 │   ├── index.html               # Upload form + pipeline overview
 │   └── report.html              # Run summary, validation details, data table
 ├── static/
