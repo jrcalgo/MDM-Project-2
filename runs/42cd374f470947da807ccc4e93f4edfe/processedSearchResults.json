@@ -1,0 +1,91 @@
+{
+  "searchResults": [
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "BAS Engineering Limited",
+      "address": "Room 708, Paramount Building, 12 Ka Yip Street",
+      "city": "Chai Wan",
+      "state": "HONG KONG",
+      "country": "HK",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "中国金山联合贸易有限责任公司",
+      "address": "金山区金一东路1号金山宾馆南8楼",
+      "city": "上海市",
+      "state": "",
+      "country": "中国",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "name": "能殷自动化贸易有限公司",
+      "address": "深圳市上步中路工会大厦B座6楼西",
+      "city": "深圳",
+      "state": "",
+      "country": "中国",
+      "postal_code": "581031",
+      "search": true
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "Pacific Bridge, Inc",
+      "address": "1155 Connecticut Ave NW",
+      "city": "Washington",
+      "state": "DC",
+      "country": "United States",
+      "postal_code": "20036",
+      "search": true
+    },
+    {
+      "search": false
+    },
+    {
+      "search": false
+    },
+    {
+      "name": "纳威尔格（北京）管理咨询有限公司",
+      "address": "",
+      "city": "北京市",
+      "state": "北京市",
+      "country": "CN",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "name": "Beria Consultants Limited",
+      "address": "",
+      "city": "Hong Kong",
+      "state": "",
+      "country": "CN",
+      "postal_code": "",
+      "search": true
+    },
+    {
+      "name": "Growinet Limited",
+      "address": "RM 1902 19/F Tung Wah Mansion 199-203 Hennessy RD",
+      "city": "Wan Chai",
+      "state": "Hong Kong",
+      "country": "Hong Kong (China)",
+      "postal_code": "",
+      "search": true
+    }
+  ]
+}

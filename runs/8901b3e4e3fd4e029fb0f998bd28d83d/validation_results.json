@@ -1,0 +1,518 @@
+{
+  "overall_decision": "validation_done",
+  "validation_loop": 1,
+  "records_needing_refinement": [],
+  "previously_failed_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "decisions": [
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail",
+    "fail"
+  ],
+  "results": {
+    "Beijing Zing Found Network Co.ltd": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Engineered Services (australia) Pty. Limited": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "No.6 Mechanical Design & Research Institute": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Bas Engineering Limited": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "北京华力豪顺科技公司": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "施耐德电气中国投资有限公司": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "中国金山联合贸易有限责任公司": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "能殷自动化贸易(深圳)有限公司": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "天津市开发区泰达大厦房地产开发有限公司泰达俱乐部": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Pacific Bridge, Inc.": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.8,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Dec Prc Limited Beijing Service Station": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "北京纳威尔格质量咨询有限公司": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold",
+        "Try both original and romanized company names"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold",
+          "Try both original and romanized company names"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Beria Consultants Ltd": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    },
+    "Growinet Ltd": {
+      "status": "fail",
+      "confidence_meets_threshold": false,
+      "threshold_used": 0.7,
+      "actual_confidence": 0.0,
+      "issues_found": [],
+      "recommendations": [
+        "Retry search with alternative query formulations",
+        "Expand search to additional sources",
+        "Try alternative query formulations",
+        "Improve data quality to meet 0.0 confidence threshold"
+      ],
+      "validation_notes": "Search failed: Error: OPENAI_API_KEY not set.",
+      "approved_for_csv": false,
+      "feedback_for_search": {
+        "refinement_needed": true,
+        "confidence_gap": 0.0,
+        "target_threshold": 0.0,
+        "issues": [],
+        "recommendations": [
+          "Retry search with alternative query formulations"
+        ],
+        "suggested_actions": [
+          "Expand search to additional sources",
+          "Try alternative query formulations",
+          "Improve data quality to meet 0.0 confidence threshold"
+        ]
+      },
+      "provenance_quality_score": 0.0,
+      "iteration_count": 1
+    }
+  }
+}

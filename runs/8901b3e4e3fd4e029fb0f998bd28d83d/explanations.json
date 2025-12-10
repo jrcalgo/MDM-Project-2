@@ -1,0 +1,12 @@
+{
+  "Beijing Zing Found Network Co.ltd": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "Engineered Services (australia) Pty. Limited": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "Bas Engineering Limited": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "中国金山联合贸易有限责任公司": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "能殷自动化贸易(深圳)有限公司": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "Pacific Bridge, Inc.": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.8; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "北京华力豪顺科技公司": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "No.6 Mechanical Design & Research Institute": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "施耐德电气中国投资有限公司": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set.",
+  "Shanghai North-power Electromechanical Instrument Complete Set Co Ltd": "Summary unavailable (LLM not configured). Fallback: Status=fail; Confidence=0.0; Threshold=0.7; Notes=Search failed: Error: OPENAI_API_KEY not set."
+}

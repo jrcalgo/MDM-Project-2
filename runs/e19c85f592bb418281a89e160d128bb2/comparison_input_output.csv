@@ -1,0 +1,16 @@
+address,city,country,name,postal_code,state,enriched_address,enriched_aka,enriched_canonical_name,enriched_city,enriched_confidence,enriched_country,enriched_ids,enriched_lat,enriched_lon,enriched_postal_code,enriched_state,enriched_websites,row_index,success,message,evidence_count
+"Building 3 Room 11c, No. 31 Zizhu Yuan Road",Beijing,CN,Beijing Zing Found Network Co.ltd,100089,BEIJING,,,,,,,,,,,,,0,False,The tools summary does not mention any results related to 'Beijing Zing Found Network Co.ltd'.,
+3/f Plaza Chambers,Springwood,AU,Engineered Services (australia) Pty. Limited,4127,QLD,,,,,,,,,,,,,1,False,No results from the tools directly reference 'Engineered Services (australia) Pty. Limited' or provide relevant information about the organization.,
+Shàngbùzhōnglù,Shēnzhènshì,CN,No.6 Mechanical Design & Research Institute,518027,GUǍNGDŌNGSHĚNG,,,,,,,,,,,,,2,False,No direct matches or relevant information found for the specified organization.,
+"6/F., PARAMOUNT BUILDING, 12 KA YIP STREET",HONG KONG,CN,Bas Engineering Limited,-,HONG KONG,"Room 708, Paramount Building, 12 Ka Yip Street",[],BAS Engineering Limited,Chai Wan,0.75,HK,{},,,,HONG KONG,[],3,True,OK,5
+"工行北京长安分理处, .",BEIJING,CN,北京华力豪顺科技公司,.,CHINA,,,,,,,,,,,,,4,False,The tools do not provide any information about the specific organization '北京华力豪顺科技公司'.,
+"中国工商银行北京经济技术开发区, 支行营业室",BEIJING,CN,施耐德电气中国投资有限公司,.,CHINA,北京市朝阳区望京东路6号A座施耐德电气大厦,[],施耐德电气(中国)有限公司,北京市,0.75,中国,{},,,100102,,['https://www.schneider-electric.cn'],5,True,OK,6
+"中行金山支行石化分理处, .",SHANGHAI,CN,中国金山联合贸易有限责任公司,.,CHINA,金山区金一东路1号金山宾馆南8楼,[],中国金山联合贸易有限责任公司,上海,0.75,中国,{},,,,,[],6,True,OK,4
+"深圳市招商银行总行营业部, .",SHENZHEN,CN,能殷自动化贸易(深圳)有限公司,.,CHINA,深圳市上步中路工会大厦6楼B座,[],能殷自动化贸易有限公司,,0.65,CN,{},,,581031,,['http://www.nengyin.cn'],7,True,OK,5
+"天津商业银行协通支行, .",TIANJIN,CN,天津市开发区泰达大厦房地产开发有限公司泰达俱乐部,.,CHINA,天津市河西区解放南路256号,[],泰达大厦,天津,0.85,中国,{},,,,,"['http://www.taidadasha.cn/', 'http://www.tianjintaidadasha.cn/']",8,True,OK,6
+1155 Connecticut Ave Nw,Washington,US,"Pacific Bridge, Inc.",20036,DC,1155 Connecticut Ave NW,[],Pacific Bridge Inc,Washington,0.75,US,{},38.9054596,-77.0406251,20036,DC,[],9,True,OK,8
+"Rm 906, # 2 Building",Zhong Shan Bei Yi Road,CN,Shanghai North-power Electromechanical Instrument Complete Set Co Ltd,200437,SHANGHAI,,,,,,,,,,,,,10,False,"The tools summary does not provide any information directly related to the input company, only general information about Shanghai.",
+"Office Tower,new Century Hotel F/5, No. 6 Nanwei Road Nan Alley",Beijing,CN,Dec Prc Limited Beijing Service Station,100050,BEIJING,,,,,,,,,,,,,11,False,No results from the tools directly reference or confirm the existence of 'Dec Prc Limited Beijing Service Station'.,
+分行西便门分理处,交行北京市,CN,北京纳威尔格质量咨询有限公司,100031,北京市,,[],纳威尔格（北京）管理咨询有限公司,北京市,0.65,CN,{},,,,北京市,['https://nevilleclarke.com.cn/'],12,True,OK,5
+"2/F CONCORD COMMERCIAL BUILDING, 157 KING'S ROAD,",HONG KONG,CN,Beria Consultants Ltd,-,HONG KONG,148 Electric Road - Rm 3805,[],Beria Consultants Limited,North Point,0.55,HK,{},,,,Hong Kong,['https://beria.com.hk/'],13,True,OK,6
+"SUTE 1900,TUNG WAH MANSION, 199-203 HENNESSY ROAD",HONG KONG,CN,Growinet Ltd,-,HONG KONG,RM 1902 19/F Tung Wah Mansion 199-203 Hennessy RD,[],Growinet Limited,Wan Chai,0.75,Hong Kong (China),{},,,,Hong Kong,['http://www.growinet.com.hk'],14,True,OK,6
